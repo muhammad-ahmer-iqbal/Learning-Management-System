@@ -1,0 +1,93 @@
+html{
+    scroll-behavior: smooth;
+}
+body{
+    background-color: rgba(255, 236, 223, 0.781);
+}
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.login-form{
+    background-color: #1a1717;
+    top: 60%;
+    width: 40%;
+    margin: auto;
+    border-radius: 5px;
+}
+.form-heading h1{
+    font-family: Verdana;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    text-align: center;
+    font-size: 70px;
+    font-weight: bolder;
+    color: #a34501;
+}
+.form-main-div .logo{
+    padding: 10px 0px;
+}
+.form-main-div .logo a{
+    color: white;
+    font-size: 50px;
+    font-weight: bold;
+    text-decoration: none;
+}
+.form-main-div .form-text{
+    color: white;
+}
+.form-main-div .form-btn{
+    background-color: white;
+    color: #f47820;
+    font-weight: 500;
+    transition: 0.3s ease-in-out;
+}
+.form-main-div .form-btn:hover{
+    background-color: #f47820;
+    color: white;
+    font-weight: 500;
+    transition: 0.3s ease-in-out;
+}
+.form-main-div .reg-form-link{
+    color: rgb(231, 216, 216);
+    font-weight: 500;
+}
+.form-main-div .reg-form-link a{
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+}
+.form-main-div .reg-form-link a:hover{
+    text-decoration: underline;
+    color: #f47820;
+    font-weight: 500;
+    transition: ease-in-out 0.3s;
+}
+.place-color ::placeholder{
+    color: #f47820;
+    opacity: 1;
+}
+.fa-user{
+    color: #f47820;
+}
+.fa-unlock-alt{
+    color: #f47820;
+}
+
+/* media Query */
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 768px) {
+    .login-form{
+        width: 100%;
+    }
+    .form-heading h1{
+        font-size: 15vw;
+    }
+    .form-main-div .logo a{
+        font-size: 10vw;
+    }
+}
+
+
+/* media Query end */

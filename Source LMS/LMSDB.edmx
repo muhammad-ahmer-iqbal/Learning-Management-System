@@ -1,0 +1,680 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="attendance">
+          <Key>
+            <PropertyRef Name="att_id" />
+          </Key>
+          <Property Name="att_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="att_name" Type="varchar" MaxLength="20" />
+          <Property Name="att_teacher" Type="varchar" MaxLength="20" />
+          <Property Name="att_session" Type="int" />
+          <Property Name="att_month" Type="varchar" MaxLength="20" />
+          <Property Name="att_year" Type="int" />
+          <Property Name="att_attendance" Type="varchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="batch">
+          <Key>
+            <PropertyRef Name="bat_id" />
+          </Key>
+          <Property Name="bat_id" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="bat_slot" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="bat_days" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="bat_teacher" Type="varchar" MaxLength="20" />
+          <Property Name="bat_coordinator" Type="varchar" MaxLength="20" />
+          <Property Name="bat_lab" Type="int" />
+          <Property Name="bat_sem" Type="int" />
+          <Property Name="bat_status" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="coordinator">
+          <Key>
+            <PropertyRef Name="coord_id" />
+          </Key>
+          <Property Name="coord_id" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="coord_name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="coord_email" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="coord_address" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="coord_contact" Type="bigint" Nullable="false" />
+          <Property Name="coord_salary" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="course">
+          <Key>
+            <PropertyRef Name="cour_name" />
+          </Key>
+          <Property Name="cour_name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="cour_sessions" Type="int" Nullable="false" />
+          <Property Name="cour_diploma" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="diploma">
+          <Key>
+            <PropertyRef Name="dip_id" />
+          </Key>
+          <Property Name="dip_name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="dip_duration" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="dip_package" Type="money" Nullable="false" />
+          <Property Name="dip_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="exam">
+          <Key>
+            <PropertyRef Name="ex_id" />
+          </Key>
+          <Property Name="ex_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ex_exam" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="examAttend">
+          <Key>
+            <PropertyRef Name="exat_id" />
+          </Key>
+          <Property Name="exat_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="exat_name" Type="int" Nullable="false" />
+          <Property Name="exat_enrollement" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="exat_status" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="exat_date" Type="date" Nullable="false" />
+          <Property Name="exat_time" Type="time" Precision="7" Nullable="false" />
+          <Property Name="exat_lab" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="student">
+          <Key>
+            <PropertyRef Name="stud_enrollment" />
+          </Key>
+          <Property Name="stud_enrollment" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="stud_name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="stud_fatherName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="stud_email" Type="varchar" MaxLength="30" />
+          <Property Name="stud_contact" Type="bigint" Nullable="false" />
+          <Property Name="stud_fee" Type="money" Nullable="false" />
+          <Property Name="stud_attendExam" Type="int" />
+          <Property Name="stud_batch" Type="varchar" MaxLength="20" />
+          <Property Name="stud_address" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="teacher">
+          <Key>
+            <PropertyRef Name="teach_id" />
+          </Key>
+          <Property Name="teach_id" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="teach_name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="teach_email" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="teach_address" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="teach_contact" Type="bigint" Nullable="false" />
+          <Property Name="teach_salary" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="userDetails">
+          <Key>
+            <PropertyRef Name="u_id" />
+          </Key>
+          <Property Name="u_id" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="u_password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="u_role" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__attendanc__att_n__5070F446">
+          <End Role="student" Type="Self.student" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="attendance" Type="Self.attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="student">
+              <PropertyRef Name="stud_enrollment" />
+            </Principal>
+            <Dependent Role="attendance">
+              <PropertyRef Name="att_name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__attendanc__att_t__5165187F">
+          <End Role="teacher" Type="Self.teacher" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="attendance" Type="Self.attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teacher">
+              <PropertyRef Name="teach_id" />
+            </Principal>
+            <Dependent Role="attendance">
+              <PropertyRef Name="att_teacher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__batch__bat_coord__440B1D61">
+          <End Role="coordinator" Type="Self.coordinator" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="batch" Type="Self.batch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="coordinator">
+              <PropertyRef Name="coord_id" />
+            </Principal>
+            <Dependent Role="batch">
+              <PropertyRef Name="bat_coordinator" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__batch__bat_teach__4316F928">
+          <End Role="teacher" Type="Self.teacher" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="batch" Type="Self.batch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teacher">
+              <PropertyRef Name="teach_id" />
+            </Principal>
+            <Dependent Role="batch">
+              <PropertyRef Name="bat_teacher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__exam__ex_exam__403A8C7D">
+          <End Role="course" Type="Self.course" Multiplicity="0..1" />
+          <End Role="exam" Type="Self.exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="course">
+              <PropertyRef Name="cour_name" />
+            </Principal>
+            <Dependent Role="exam">
+              <PropertyRef Name="ex_exam" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__examAtten__exat___4BAC3F29">
+          <End Role="student" Type="Self.student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="examAttend" Type="Self.examAttend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="student">
+              <PropertyRef Name="stud_enrollment" />
+            </Principal>
+            <Dependent Role="examAttend">
+              <PropertyRef Name="exat_enrollement" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_examAttend_exam">
+          <End Role="exam" Type="Self.exam" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="examAttend" Type="Self.examAttend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="exam">
+              <PropertyRef Name="ex_id" />
+            </Principal>
+            <Dependent Role="examAttend">
+              <PropertyRef Name="exat_name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="findBatch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="batch" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="LMSModelStoreContainer">
+          <EntitySet Name="attendance" EntityType="Self.attendance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="batch" EntityType="Self.batch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="coordinator" EntityType="Self.coordinator" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="course" EntityType="Self.course" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="diploma" EntityType="Self.diploma" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="exam" EntityType="Self.exam" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="examAttend" EntityType="Self.examAttend" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="student" EntityType="Self.student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="teacher" EntityType="Self.teacher" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="userDetails" EntityType="Self.userDetails" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__attendanc__att_n__5070F446" Association="Self.FK__attendanc__att_n__5070F446">
+            <End Role="student" EntitySet="student" />
+            <End Role="attendance" EntitySet="attendance" />
+          </AssociationSet>
+          <AssociationSet Name="FK__attendanc__att_t__5165187F" Association="Self.FK__attendanc__att_t__5165187F">
+            <End Role="teacher" EntitySet="teacher" />
+            <End Role="attendance" EntitySet="attendance" />
+          </AssociationSet>
+          <AssociationSet Name="FK__batch__bat_coord__440B1D61" Association="Self.FK__batch__bat_coord__440B1D61">
+            <End Role="coordinator" EntitySet="coordinator" />
+            <End Role="batch" EntitySet="batch" />
+          </AssociationSet>
+          <AssociationSet Name="FK__batch__bat_teach__4316F928" Association="Self.FK__batch__bat_teach__4316F928">
+            <End Role="teacher" EntitySet="teacher" />
+            <End Role="batch" EntitySet="batch" />
+          </AssociationSet>
+          <AssociationSet Name="FK__exam__ex_exam__403A8C7D" Association="Self.FK__exam__ex_exam__403A8C7D">
+            <End Role="course" EntitySet="course" />
+            <End Role="exam" EntitySet="exam" />
+          </AssociationSet>
+          <AssociationSet Name="FK__examAtten__exat___4BAC3F29" Association="Self.FK__examAtten__exat___4BAC3F29">
+            <End Role="student" EntitySet="student" />
+            <End Role="examAttend" EntitySet="examAttend" />
+          </AssociationSet>
+          <AssociationSet Name="FK_examAttend_exam" Association="Self.FK_examAttend_exam">
+            <End Role="exam" EntitySet="exam" />
+            <End Role="examAttend" EntitySet="examAttend" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="attendance">
+          <Key>
+            <PropertyRef Name="att_id" />
+          </Key>
+          <Property Name="att_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="att_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="att_teacher" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="att_session" Type="Int32" />
+          <Property Name="att_month" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="att_year" Type="Int32" />
+          <NavigationProperty Name="student" Relationship="Self.FK__attendanc__att_n__5070F446" FromRole="attendance" ToRole="student" />
+          <NavigationProperty Name="teacher" Relationship="Self.FK__attendanc__att_t__5165187F" FromRole="attendance" ToRole="teacher" />
+          <Property Name="att_attendance" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="batch">
+          <Key>
+            <PropertyRef Name="bat_id" />
+          </Key>
+          <Property Name="bat_id" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="bat_slot" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="bat_days" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="bat_teacher" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="bat_coordinator" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="bat_lab" Type="Int32" />
+          <Property Name="bat_sem" Type="Int32" />
+          <Property Name="bat_status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="coordinator" Relationship="Self.FK__batch__bat_coord__440B1D61" FromRole="batch" ToRole="coordinator" />
+          <NavigationProperty Name="teacher" Relationship="Self.FK__batch__bat_teach__4316F928" FromRole="batch" ToRole="teacher" />
+        </EntityType>
+        <EntityType Name="coordinator">
+          <Key>
+            <PropertyRef Name="coord_id" />
+          </Key>
+          <Property Name="coord_id" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="coord_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="coord_email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="coord_address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="coord_contact" Type="Int64" Nullable="false" />
+          <Property Name="coord_salary" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="batch" Relationship="Self.FK__batch__bat_coord__440B1D61" FromRole="coordinator" ToRole="batch" />
+        </EntityType>
+        <EntityType Name="course">
+          <Key>
+            <PropertyRef Name="cour_name" />
+          </Key>
+          <Property Name="cour_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cour_sessions" Type="Int32" Nullable="false" />
+          <Property Name="cour_diploma" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="exam" Relationship="Self.FK__exam__ex_exam__403A8C7D" FromRole="course" ToRole="exam" />
+        </EntityType>
+        <EntityType Name="diploma">
+          <Key>
+            <PropertyRef Name="dip_id" />
+          </Key>
+          <Property Name="dip_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dip_duration" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dip_package" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="dip_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="exam">
+          <Key>
+            <PropertyRef Name="ex_id" />
+          </Key>
+          <Property Name="ex_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ex_exam" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="course" Relationship="Self.FK__exam__ex_exam__403A8C7D" FromRole="exam" ToRole="course" />
+          <NavigationProperty Name="examAttend" Relationship="Self.FK_examAttend_exam" FromRole="exam" ToRole="examAttend" />
+        </EntityType>
+        <EntityType Name="examAttend">
+          <Key>
+            <PropertyRef Name="exat_id" />
+          </Key>
+          <Property Name="exat_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="exat_name" Type="Int32" Nullable="false" />
+          <Property Name="exat_enrollement" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="exat_status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="exat_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="exat_time" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="exat_lab" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="exam" Relationship="Self.FK_examAttend_exam" FromRole="examAttend" ToRole="exam" />
+          <NavigationProperty Name="student" Relationship="Self.FK__examAtten__exat___4BAC3F29" FromRole="examAttend" ToRole="student" />
+        </EntityType>
+        <EntityType Name="student">
+          <Key>
+            <PropertyRef Name="stud_enrollment" />
+          </Key>
+          <Property Name="stud_enrollment" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="stud_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="stud_fatherName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="stud_email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="stud_contact" Type="Int64" Nullable="false" />
+          <Property Name="stud_fee" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="stud_attendExam" Type="Int32" />
+          <Property Name="stud_batch" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="stud_address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="attendance" Relationship="Self.FK__attendanc__att_n__5070F446" FromRole="student" ToRole="attendance" />
+          <NavigationProperty Name="examAttend" Relationship="Self.FK__examAtten__exat___4BAC3F29" FromRole="student" ToRole="examAttend" />
+        </EntityType>
+        <EntityType Name="teacher">
+          <Key>
+            <PropertyRef Name="teach_id" />
+          </Key>
+          <Property Name="teach_id" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="teach_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="teach_email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="teach_address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="teach_contact" Type="Int64" Nullable="false" />
+          <Property Name="teach_salary" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="attendance" Relationship="Self.FK__attendanc__att_t__5165187F" FromRole="teacher" ToRole="attendance" />
+          <NavigationProperty Name="batch" Relationship="Self.FK__batch__bat_teach__4316F928" FromRole="teacher" ToRole="batch" />
+        </EntityType>
+        <Association Name="FK__attendanc__att_n__5070F446">
+          <End Role="student" Type="Self.student" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="attendance" Type="Self.attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="student">
+              <PropertyRef Name="stud_enrollment" />
+            </Principal>
+            <Dependent Role="attendance">
+              <PropertyRef Name="att_name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__attendanc__att_t__5165187F">
+          <End Role="teacher" Type="Self.teacher" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="attendance" Type="Self.attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teacher">
+              <PropertyRef Name="teach_id" />
+            </Principal>
+            <Dependent Role="attendance">
+              <PropertyRef Name="att_teacher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__batch__bat_coord__440B1D61">
+          <End Role="coordinator" Type="Self.coordinator" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="batch" Type="Self.batch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="coordinator">
+              <PropertyRef Name="coord_id" />
+            </Principal>
+            <Dependent Role="batch">
+              <PropertyRef Name="bat_coordinator" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__batch__bat_teach__4316F928">
+          <End Role="teacher" Type="Self.teacher" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="batch" Type="Self.batch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teacher">
+              <PropertyRef Name="teach_id" />
+            </Principal>
+            <Dependent Role="batch">
+              <PropertyRef Name="bat_teacher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__exam__ex_exam__403A8C7D">
+          <End Role="course" Type="Self.course" Multiplicity="0..1" />
+          <End Role="exam" Type="Self.exam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="course">
+              <PropertyRef Name="cour_name" />
+            </Principal>
+            <Dependent Role="exam">
+              <PropertyRef Name="ex_exam" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_examAttend_exam">
+          <End Role="exam" Type="Self.exam" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="examAttend" Type="Self.examAttend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="exam">
+              <PropertyRef Name="ex_id" />
+            </Principal>
+            <Dependent Role="examAttend">
+              <PropertyRef Name="exat_name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__examAtten__exat___4BAC3F29">
+          <End Role="student" Type="Self.student" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="examAttend" Type="Self.examAttend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="student">
+              <PropertyRef Name="stud_enrollment" />
+            </Principal>
+            <Dependent Role="examAttend">
+              <PropertyRef Name="exat_enrollement" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LMSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="attendance" EntityType="Self.attendance" />
+          <EntitySet Name="batch" EntityType="Self.batch" />
+          <EntitySet Name="coordinator" EntityType="Self.coordinator" />
+          <EntitySet Name="course" EntityType="Self.course" />
+          <EntitySet Name="diploma" EntityType="Self.diploma" />
+          <EntitySet Name="exam" EntityType="Self.exam" />
+          <EntitySet Name="examAttend" EntityType="Self.examAttend" />
+          <EntitySet Name="student" EntityType="Self.student" />
+          <EntitySet Name="teacher" EntityType="Self.teacher" />
+          <AssociationSet Name="FK__attendanc__att_n__5070F446" Association="Self.FK__attendanc__att_n__5070F446">
+            <End Role="student" EntitySet="student" />
+            <End Role="attendance" EntitySet="attendance" />
+          </AssociationSet>
+          <AssociationSet Name="FK__attendanc__att_t__5165187F" Association="Self.FK__attendanc__att_t__5165187F">
+            <End Role="teacher" EntitySet="teacher" />
+            <End Role="attendance" EntitySet="attendance" />
+          </AssociationSet>
+          <AssociationSet Name="FK__batch__bat_coord__440B1D61" Association="Self.FK__batch__bat_coord__440B1D61">
+            <End Role="coordinator" EntitySet="coordinator" />
+            <End Role="batch" EntitySet="batch" />
+          </AssociationSet>
+          <AssociationSet Name="FK__batch__bat_teach__4316F928" Association="Self.FK__batch__bat_teach__4316F928">
+            <End Role="teacher" EntitySet="teacher" />
+            <End Role="batch" EntitySet="batch" />
+          </AssociationSet>
+          <AssociationSet Name="FK__exam__ex_exam__403A8C7D" Association="Self.FK__exam__ex_exam__403A8C7D">
+            <End Role="course" EntitySet="course" />
+            <End Role="exam" EntitySet="exam" />
+          </AssociationSet>
+          <AssociationSet Name="FK_examAttend_exam" Association="Self.FK_examAttend_exam">
+            <End Role="exam" EntitySet="exam" />
+            <End Role="examAttend" EntitySet="examAttend" />
+          </AssociationSet>
+          <AssociationSet Name="FK__examAtten__exat___4BAC3F29" Association="Self.FK__examAtten__exat___4BAC3F29">
+            <End Role="student" EntitySet="student" />
+            <End Role="examAttend" EntitySet="examAttend" />
+          </AssociationSet>
+          <FunctionImport Name="findBatch" ReturnType="Collection(LMSModel.findBatch_Result)">
+          <Parameter Name="batch" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="userDetails" EntityType="LMSModel.userDetails" />
+        </EntityContainer>
+        <ComplexType Name="findBatch_Result">
+          <Property Type="String" Name="stud_enrollment" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="stud_name" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="stud_fatherName" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="stud_email" Nullable="true" MaxLength="30" />
+          <Property Type="Int64" Name="stud_contact" Nullable="false" />
+          <Property Type="Decimal" Name="stud_fee" Nullable="false" Precision="19" />
+          <Property Type="Int32" Name="stud_attendExam" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="userDetails">
+          <Key>
+            <PropertyRef Name="u_id" />
+          </Key>
+          <Property Name="u_id" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="u_password" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="u_role" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LMSModelStoreContainer" CdmEntityContainer="LMSEntities">
+          <EntitySetMapping Name="attendance">
+            <EntityTypeMapping TypeName="LMSModel.attendance">
+              <MappingFragment StoreEntitySet="attendance">
+                <ScalarProperty Name="att_attendance" ColumnName="att_attendance" />
+                <ScalarProperty Name="att_id" ColumnName="att_id" />
+                <ScalarProperty Name="att_name" ColumnName="att_name" />
+                <ScalarProperty Name="att_teacher" ColumnName="att_teacher" />
+                <ScalarProperty Name="att_session" ColumnName="att_session" />
+                <ScalarProperty Name="att_month" ColumnName="att_month" />
+                <ScalarProperty Name="att_year" ColumnName="att_year" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="batch">
+            <EntityTypeMapping TypeName="LMSModel.batch">
+              <MappingFragment StoreEntitySet="batch">
+                <ScalarProperty Name="bat_id" ColumnName="bat_id" />
+                <ScalarProperty Name="bat_slot" ColumnName="bat_slot" />
+                <ScalarProperty Name="bat_days" ColumnName="bat_days" />
+                <ScalarProperty Name="bat_teacher" ColumnName="bat_teacher" />
+                <ScalarProperty Name="bat_coordinator" ColumnName="bat_coordinator" />
+                <ScalarProperty Name="bat_lab" ColumnName="bat_lab" />
+                <ScalarProperty Name="bat_sem" ColumnName="bat_sem" />
+                <ScalarProperty Name="bat_status" ColumnName="bat_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="coordinator">
+            <EntityTypeMapping TypeName="LMSModel.coordinator">
+              <MappingFragment StoreEntitySet="coordinator">
+                <ScalarProperty Name="coord_id" ColumnName="coord_id" />
+                <ScalarProperty Name="coord_name" ColumnName="coord_name" />
+                <ScalarProperty Name="coord_email" ColumnName="coord_email" />
+                <ScalarProperty Name="coord_address" ColumnName="coord_address" />
+                <ScalarProperty Name="coord_contact" ColumnName="coord_contact" />
+                <ScalarProperty Name="coord_salary" ColumnName="coord_salary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="course">
+            <EntityTypeMapping TypeName="LMSModel.course">
+              <MappingFragment StoreEntitySet="course">
+                <ScalarProperty Name="cour_name" ColumnName="cour_name" />
+                <ScalarProperty Name="cour_sessions" ColumnName="cour_sessions" />
+                <ScalarProperty Name="cour_diploma" ColumnName="cour_diploma" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="diploma">
+            <EntityTypeMapping TypeName="LMSModel.diploma">
+              <MappingFragment StoreEntitySet="diploma">
+                <ScalarProperty Name="dip_name" ColumnName="dip_name" />
+                <ScalarProperty Name="dip_duration" ColumnName="dip_duration" />
+                <ScalarProperty Name="dip_package" ColumnName="dip_package" />
+                <ScalarProperty Name="dip_id" ColumnName="dip_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="exam">
+            <EntityTypeMapping TypeName="LMSModel.exam">
+              <MappingFragment StoreEntitySet="exam">
+                <ScalarProperty Name="ex_id" ColumnName="ex_id" />
+                <ScalarProperty Name="ex_exam" ColumnName="ex_exam" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="examAttend">
+            <EntityTypeMapping TypeName="LMSModel.examAttend">
+              <MappingFragment StoreEntitySet="examAttend">
+                <ScalarProperty Name="exat_id" ColumnName="exat_id" />
+                <ScalarProperty Name="exat_name" ColumnName="exat_name" />
+                <ScalarProperty Name="exat_enrollement" ColumnName="exat_enrollement" />
+                <ScalarProperty Name="exat_status" ColumnName="exat_status" />
+                <ScalarProperty Name="exat_date" ColumnName="exat_date" />
+                <ScalarProperty Name="exat_time" ColumnName="exat_time" />
+                <ScalarProperty Name="exat_lab" ColumnName="exat_lab" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="student">
+            <EntityTypeMapping TypeName="LMSModel.student">
+              <MappingFragment StoreEntitySet="student">
+                <ScalarProperty Name="stud_enrollment" ColumnName="stud_enrollment" />
+                <ScalarProperty Name="stud_name" ColumnName="stud_name" />
+                <ScalarProperty Name="stud_fatherName" ColumnName="stud_fatherName" />
+                <ScalarProperty Name="stud_email" ColumnName="stud_email" />
+                <ScalarProperty Name="stud_contact" ColumnName="stud_contact" />
+                <ScalarProperty Name="stud_fee" ColumnName="stud_fee" />
+                <ScalarProperty Name="stud_attendExam" ColumnName="stud_attendExam" />
+                <ScalarProperty Name="stud_batch" ColumnName="stud_batch" />
+                <ScalarProperty Name="stud_address" ColumnName="stud_address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="teacher">
+            <EntityTypeMapping TypeName="LMSModel.teacher">
+              <MappingFragment StoreEntitySet="teacher">
+                <ScalarProperty Name="teach_id" ColumnName="teach_id" />
+                <ScalarProperty Name="teach_name" ColumnName="teach_name" />
+                <ScalarProperty Name="teach_email" ColumnName="teach_email" />
+                <ScalarProperty Name="teach_address" ColumnName="teach_address" />
+                <ScalarProperty Name="teach_contact" ColumnName="teach_contact" />
+                <ScalarProperty Name="teach_salary" ColumnName="teach_salary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="findBatch" FunctionName="LMSModel.Store.findBatch">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LMSModel.findBatch_Result">
+                <ScalarProperty Name="stud_enrollment" ColumnName="stud_enrollment" />
+                <ScalarProperty Name="stud_name" ColumnName="stud_name" />
+                <ScalarProperty Name="stud_fatherName" ColumnName="stud_fatherName" />
+                <ScalarProperty Name="stud_email" ColumnName="stud_email" />
+                <ScalarProperty Name="stud_contact" ColumnName="stud_contact" />
+                <ScalarProperty Name="stud_fee" ColumnName="stud_fee" />
+                <ScalarProperty Name="stud_attendExam" ColumnName="stud_attendExam" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="userDetails">
+            <EntityTypeMapping TypeName="LMSModel.userDetails">
+              <MappingFragment StoreEntitySet="userDetails">
+                <ScalarProperty Name="u_role" ColumnName="u_role" />
+                <ScalarProperty Name="u_password" ColumnName="u_password" />
+                <ScalarProperty Name="u_id" ColumnName="u_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

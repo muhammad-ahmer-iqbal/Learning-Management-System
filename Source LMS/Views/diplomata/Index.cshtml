@@ -1,0 +1,85 @@
+﻿@model IEnumerable<LMS.diploma>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .Diploma, .Diploma i {
+        background-color: #EDEDED !important;
+        color: #F36A5A !important;
+    }
+
+        .Diploma i {
+            color: #F36A5A !important;
+        }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- Advanced Tables -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <b>Diploma Details</b>
+                @if (User.IsInRole("Admin"))
+                {
+                    <p>
+                        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-block btn-md btn-info" })
+                    </p>
+                }
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.dip_name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.dip_duration)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.dip_package)
+                                </th>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <th></th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="odd gradeX">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.dip_name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.dip_duration)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.dip_package)
+                                    </td>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <td class="text-center">
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.dip_id }, new { @class = "btn btn-primary btn-sm" }) |
+                                            <button class="btn btn-danger btn-sm" onclick="del(this, '@Html.DisplayFor(modelItem => item.dip_name)')">Delete</button>
+                                            @using (Html.BeginForm())
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" value=@Html.DisplayFor(modelItem => item.dip_name) name="delete" />
+                                                <input type="submit" value="Confirm Delete" class="btn btn-danger btn-sm" id=@Html.DisplayFor(modelItem => item.dip_name) style="display: none;" />
+                                            }
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--End Advanced Tables -->
+    </div>
+</div>

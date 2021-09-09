@@ -1,0 +1,153 @@
+﻿@model LMS.Models.login
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - LMS</title>
+
+    <!-- Bootstrap 4 CDN's Links -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Bootstrap 4 CDN's Links End -->
+    <!-- Fontawesome External Files -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Font Family End -->
+    <!-- Animate Css -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    
+    <style>
+        .login-form {
+            background-color: #1a1717;
+            top: 60%;
+            width: 40%;
+            margin: auto;
+            border-radius: 5px;
+        }
+
+        .form-heading h1 {
+            font-family: Verdana;
+            margin-top: 30px;
+            margin-bottom: 50px;
+            text-align: center;
+            font-size: 70px;
+            font-weight: bolder;
+            color: #a34501;
+        }
+
+        .form-main-div .logo {
+            padding: 10px 0px;
+        }
+
+        .form-main-div .logo a {
+            color: white;
+            font-size: 50px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .form-main-div .form-text {
+            color: white;
+        }
+
+        .form-main-div .form-btn {
+            background-color: white;
+            color: #f47820;
+            font-weight: 500;
+            transition: 0.3s ease-in-out;
+        }
+
+        .form-main-div .form-btn:hover {
+            background-color: #f47820;
+            color: white;
+            font-weight: 500;
+            transition: 0.3s ease-in-out;
+        }
+
+        .form-main-div .reg-form-link {
+            color: rgb(231, 216, 216);
+            font-weight: 500;
+        }
+
+        .form-main-div .reg-form-link a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+        }
+
+        .form-main-div .reg-form-link a:hover {
+            text-decoration: underline;
+            color: #f47820;
+            font-weight: 500;
+            transition: ease-in-out 0.3s;
+        }
+
+        .fa-user {
+            color: #f47820;
+        }
+
+        .fa-unlock-alt {
+            color: #f47820;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-heading">
+            <h1 class="animate__animated animate__fadeInDown">Login For LMS</h1>
+        </div>
+        <div class="form-main-div">
+            <div class="login-form py-3 animate__animated animate__fadeIn">
+                <div class="container">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <form>
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="logo text-center">
+                                <img src="~/Content/assets/logo/Logo.png" alt="Logo" class="img-responsive" width="70%">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <i class="fa fa-user"></i>
+                                    </span>
+                                </div>
+                                @Html.EditorFor(model => model.u_id, new { htmlAttributes = new { @class = "form-control place-color", @placeholder = "Username" } })
+                                @Html.ValidationMessageFor(model => model.u_id, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon2">
+                                        <i class="fa fa-unlock-alt"></i>
+                                    </span>
+                                </div>
+                                @Html.EditorFor(model => model.u_password, new { htmlAttributes = new { @class = "form-control place-color", @placeholder = "Password" } })
+                                @Html.ValidationMessageFor(model => model.u_password, "", new { @class = "text-danger" })
+                            </div>
+                            <input value="Login Now" type="submit" class="btn btn-block form-btn mt-4 mb-2"/>
+                        </form>
+                    }
+                    </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

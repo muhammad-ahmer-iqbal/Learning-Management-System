@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LMSModelStoreContainer" CdmEntityContainer="LMSEntities">
+    <EntitySetMapping Name="attendance">
+      <EntityTypeMapping TypeName="LMSModel.attendance">
+        <MappingFragment StoreEntitySet="attendance">
+          <ScalarProperty Name="att_attendance" ColumnName="att_attendance" />
+          <ScalarProperty Name="att_id" ColumnName="att_id" />
+          <ScalarProperty Name="att_name" ColumnName="att_name" />
+          <ScalarProperty Name="att_teacher" ColumnName="att_teacher" />
+          <ScalarProperty Name="att_session" ColumnName="att_session" />
+          <ScalarProperty Name="att_month" ColumnName="att_month" />
+          <ScalarProperty Name="att_year" ColumnName="att_year" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="batch">
+      <EntityTypeMapping TypeName="LMSModel.batch">
+        <MappingFragment StoreEntitySet="batch">
+          <ScalarProperty Name="bat_id" ColumnName="bat_id" />
+          <ScalarProperty Name="bat_slot" ColumnName="bat_slot" />
+          <ScalarProperty Name="bat_days" ColumnName="bat_days" />
+          <ScalarProperty Name="bat_teacher" ColumnName="bat_teacher" />
+          <ScalarProperty Name="bat_coordinator" ColumnName="bat_coordinator" />
+          <ScalarProperty Name="bat_lab" ColumnName="bat_lab" />
+          <ScalarProperty Name="bat_sem" ColumnName="bat_sem" />
+          <ScalarProperty Name="bat_status" ColumnName="bat_status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="coordinator">
+      <EntityTypeMapping TypeName="LMSModel.coordinator">
+        <MappingFragment StoreEntitySet="coordinator">
+          <ScalarProperty Name="coord_id" ColumnName="coord_id" />
+          <ScalarProperty Name="coord_name" ColumnName="coord_name" />
+          <ScalarProperty Name="coord_email" ColumnName="coord_email" />
+          <ScalarProperty Name="coord_address" ColumnName="coord_address" />
+          <ScalarProperty Name="coord_contact" ColumnName="coord_contact" />
+          <ScalarProperty Name="coord_salary" ColumnName="coord_salary" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="course">
+      <EntityTypeMapping TypeName="LMSModel.course">
+        <MappingFragment StoreEntitySet="course">
+          <ScalarProperty Name="cour_name" ColumnName="cour_name" />
+          <ScalarProperty Name="cour_sessions" ColumnName="cour_sessions" />
+          <ScalarProperty Name="cour_diploma" ColumnName="cour_diploma" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="diploma">
+      <EntityTypeMapping TypeName="LMSModel.diploma">
+        <MappingFragment StoreEntitySet="diploma">
+          <ScalarProperty Name="dip_name" ColumnName="dip_name" />
+          <ScalarProperty Name="dip_duration" ColumnName="dip_duration" />
+          <ScalarProperty Name="dip_package" ColumnName="dip_package" />
+          <ScalarProperty Name="dip_id" ColumnName="dip_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="exam">
+      <EntityTypeMapping TypeName="LMSModel.exam">
+        <MappingFragment StoreEntitySet="exam">
+          <ScalarProperty Name="ex_id" ColumnName="ex_id" />
+          <ScalarProperty Name="ex_exam" ColumnName="ex_exam" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="examAttend">
+      <EntityTypeMapping TypeName="LMSModel.examAttend">
+        <MappingFragment StoreEntitySet="examAttend">
+          <ScalarProperty Name="exat_id" ColumnName="exat_id" />
+          <ScalarProperty Name="exat_name" ColumnName="exat_name" />
+          <ScalarProperty Name="exat_enrollement" ColumnName="exat_enrollement" />
+          <ScalarProperty Name="exat_status" ColumnName="exat_status" />
+          <ScalarProperty Name="exat_date" ColumnName="exat_date" />
+          <ScalarProperty Name="exat_time" ColumnName="exat_time" />
+          <ScalarProperty Name="exat_lab" ColumnName="exat_lab" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="student">
+      <EntityTypeMapping TypeName="LMSModel.student">
+        <MappingFragment StoreEntitySet="student">
+          <ScalarProperty Name="stud_enrollment" ColumnName="stud_enrollment" />
+          <ScalarProperty Name="stud_name" ColumnName="stud_name" />
+          <ScalarProperty Name="stud_fatherName" ColumnName="stud_fatherName" />
+          <ScalarProperty Name="stud_email" ColumnName="stud_email" />
+          <ScalarProperty Name="stud_contact" ColumnName="stud_contact" />
+          <ScalarProperty Name="stud_fee" ColumnName="stud_fee" />
+          <ScalarProperty Name="stud_attendExam" ColumnName="stud_attendExam" />
+          <ScalarProperty Name="stud_batch" ColumnName="stud_batch" />
+          <ScalarProperty Name="stud_address" ColumnName="stud_address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="teacher">
+      <EntityTypeMapping TypeName="LMSModel.teacher">
+        <MappingFragment StoreEntitySet="teacher">
+          <ScalarProperty Name="teach_id" ColumnName="teach_id" />
+          <ScalarProperty Name="teach_name" ColumnName="teach_name" />
+          <ScalarProperty Name="teach_email" ColumnName="teach_email" />
+          <ScalarProperty Name="teach_address" ColumnName="teach_address" />
+          <ScalarProperty Name="teach_contact" ColumnName="teach_contact" />
+          <ScalarProperty Name="teach_salary" ColumnName="teach_salary" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="findBatch" FunctionName="LMSModel.Store.findBatch">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="LMSModel.findBatch_Result">
+          <ScalarProperty Name="stud_enrollment" ColumnName="stud_enrollment" />
+          <ScalarProperty Name="stud_name" ColumnName="stud_name" />
+          <ScalarProperty Name="stud_fatherName" ColumnName="stud_fatherName" />
+          <ScalarProperty Name="stud_email" ColumnName="stud_email" />
+          <ScalarProperty Name="stud_contact" ColumnName="stud_contact" />
+          <ScalarProperty Name="stud_fee" ColumnName="stud_fee" />
+          <ScalarProperty Name="stud_attendExam" ColumnName="stud_attendExam" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="userDetails">
+      <EntityTypeMapping TypeName="LMSModel.userDetails">
+        <MappingFragment StoreEntitySet="userDetails">
+          <ScalarProperty Name="u_role" ColumnName="u_role" />
+          <ScalarProperty Name="u_password" ColumnName="u_password" />
+          <ScalarProperty Name="u_id" ColumnName="u_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

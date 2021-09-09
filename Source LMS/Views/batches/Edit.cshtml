@@ -1,0 +1,81 @@
+﻿@model LMS.batch
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="page-header signup">Batch</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.bat_id)
+    <form>
+        <div class="form-group">
+            @Html.LabelFor(model => model.bat_id, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.bat_id, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+            @Html.ValidationMessageFor(model => model.bat_id, "", new { @class = "text-danger" })
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.bat_slot, htmlAttributes: new { @class = "control-label" })
+                <div class="form-group">
+                    @Html.EditorFor(model => model.bat_slot, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.bat_slot, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.bat_days, htmlAttributes: new { @class = "control-label" })
+                <div class="form-group">
+                    @Html.EditorFor(model => model.bat_days, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.bat_days, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.bat_teacher, htmlAttributes: new { @class = "control-label" })
+                <div class="form-group">
+                    @Html.DropDownList("bat_teacher", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.bat_teacher, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.bat_coordinator, htmlAttributes: new { @class = "control-label" })
+                <div class="form-group">
+                    @Html.DropDownList("bat_coordinator", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.bat_coordinator, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.bat_lab, htmlAttributes: new { @class = "control-label" })
+                <div class="form-group">
+                    @Html.EditorFor(model => model.bat_lab, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.bat_lab, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.bat_sem, htmlAttributes: new { @class = "control-label" })
+                <div class="form-group">
+                    @Html.EditorFor(model => model.bat_sem, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.bat_sem, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.bat_status, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.bat_status, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.bat_status, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="text-center">
+            <input type="submit" class="btn btn-warning" value="Edit" name="sumbit">
+        </div>
+    </form>
+}
+<br />
+@Html.ActionLink("Back", "Index", null, new { @class = "btn btn-warning" })

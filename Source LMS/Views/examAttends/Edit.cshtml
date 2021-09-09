@@ -1,0 +1,72 @@
+﻿@model LMS.examAttend
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="page-header signup">Attend Exam</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.exat_id)
+    <form>
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.exat_name, "exat_name", htmlAttributes: new { @class = "control-label" })
+                <div class="form-group">
+                    @Html.DropDownList("exat_name", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.exat_name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.exat_enrollement, "exat_enrollement", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="form-group">
+                    @Html.DropDownList("exat_enrollement", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.exat_enrollement, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.exat_date, htmlAttributes: new { @class = "control-label" })
+                <div class="form-group">
+                    @Html.EditorFor(model => model.exat_date, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.exat_date, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.exat_time, htmlAttributes: new { @class = "control-label" })
+                <div class="form-group">
+                    @Html.EditorFor(model => model.exat_time, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.exat_time, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.exat_status, htmlAttributes: new { @class = "control-label" })
+                <div class="form-group">
+                    @Html.DropDownListFor(model => model.exat_status, new List<SelectListItem> {
+                       new SelectListItem { Value = "Pending" , Text = "Pending" },
+                       new SelectListItem { Value = "Passed" , Text = "Passed" },
+                       new SelectListItem { Value = "Failed" , Text = "Failed" }
+                    }, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.exat_lab, htmlAttributes: new { @class = "control-label" })
+                <div class="form-group">
+                    @Html.EditorFor(model => model.exat_lab, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.exat_lab, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <input type="submit" class="btn btn-warning" value="Edit" name="sumbit">
+        </div>
+    </form>
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="669001604d2b4e03863d4044c49f5074" Name="Diagram1">
+        <EntityTypeShape EntityType="LMSModel.attendance" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LMSModel.batch" Width="1.5" PointX="6" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LMSModel.coordinator" Width="1.5" PointX="3.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LMSModel.course" Width="1.5" PointX="1.5" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LMSModel.diploma" Width="1.5" PointX="7.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LMSModel.exam" Width="1.5" PointX="3.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LMSModel.examAttend" Width="1.5" PointX="6" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="LMSModel.student" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LMSModel.teacher" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <AssociationConnector Association="LMSModel.FK__attendanc__att_n__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="LMSModel.FK__attendanc__att_t__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="LMSModel.FK__batch__bat_coord__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="LMSModel.FK__batch__bat_teach__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="LMSModel.FK__exam__ex_exam__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="LMSModel.FK_examAttend_exam" ManuallyRouted="false" />
+        <AssociationConnector Association="LMSModel.FK__examAtten__exat___4BAC3F29" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="LMSModel.userDetails" Width="1.5" PointX="8.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

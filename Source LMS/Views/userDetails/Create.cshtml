@@ -1,0 +1,34 @@
+﻿@model LMS.userDetails
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="page-header signup">Users</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <form>
+        <div class="form-group">
+            @Html.LabelFor(model => model.u_id, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.u_id, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.u_id, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.u_password, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.u_password, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.u_password, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.u_role, htmlAttributes: new { @class = "control-label" })
+            <input type="text" value="Admin" name="u_role" class="form-control" disabled />
+        </div>
+
+        <div class="text-center">
+            <input type="submit" class="btn btn-warning" value="Create" name="sumbit">
+        </div>
+    </form>
+}

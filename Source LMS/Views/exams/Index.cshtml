@@ -1,0 +1,79 @@
+﻿@model IEnumerable<LMS.exam>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .Exam, .Exam i {
+        background-color: #EDEDED !important;
+        color: #F36A5A !important;
+    }
+
+        .Exam i {
+            color: #F36A5A !important;
+        }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- Advanced Tables -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <b>Exam Details</b>
+                @if (User.IsInRole("Admin"))
+                {
+                    <p>
+                        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-block btn-md btn-info" })
+                    </p>
+                }
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Serial No.
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.course.cour_diploma)
+                                </th>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <th></th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ex_id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.course.cour_name)
+                                    </td>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.ex_id }, new { @class = "btn btn-primary btn-sm" }) |
+                                            <button class="btn btn-danger btn-sm" onclick="del(this, '@Html.DisplayFor(modelItem => item.ex_id)')">Delete</button>
+                                            @using (Html.BeginForm())
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" value=@Html.DisplayFor(modelItem => item.ex_id) name="delete" />
+                                                <input type="submit" value="Confirm Delete" class="btn btn-danger btn-sm" id=@Html.DisplayFor(modelItem => item.ex_id) style="display: none;" />
+                                            }
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--End Advanced Tables -->
+    </div>
+</div>

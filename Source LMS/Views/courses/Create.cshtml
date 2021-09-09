@@ -1,0 +1,44 @@
+﻿@model LMS.course
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="page-header signup">Courses</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <form>
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.cour_name, htmlAttributes: new { @class = "control-label" })
+                <div class="form-group">
+                    @Html.EditorFor(model => model.cour_name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Must not be created before" } })
+                    @Html.ValidationMessageFor(model => model.cour_name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.cour_sessions, htmlAttributes: new { @class = "control-label" })
+                <div class="form-group">
+                    @Html.EditorFor(model => model.cour_sessions, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.cour_sessions, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.cour_diploma, "cour_diploma", htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownList("cour_diploma", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.cour_diploma, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="text-center">
+            <input type="submit" class="btn btn-warning" value="Create" name="sumbit">
+        </div>
+    </form>
+}
+
+<br />
+@Html.ActionLink("Back", "Index", null, new { @class = "btn btn-warning" })

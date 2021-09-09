@@ -1,0 +1,182 @@
+﻿@model IEnumerable<LMS.examAttend>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .Exam-Attended, .Exam-Attended i {
+        background-color: #EDEDED !important;
+        color: #F36A5A !important;
+    }
+
+        .Exam-Attended i {
+            color: #F36A5A !important;
+        }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- Advanced Tables -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <b>Attended Exams Details</b>
+                @if ((User.IsInRole("Admin")) || (User.IsInRole("Coordinator")))
+                {
+                    <p>
+                        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-block btn-md btn-info" })
+                    </p>
+                }
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.student.stud_name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.exam.ex_exam)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.exat_date)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.exat_time)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.exat_lab)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.exat_status)
+                                </th>
+                                @if ((User.IsInRole("Admin")) || (User.IsInRole("Coordinator")))
+                                {
+                                    <th></th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                if ((User.IsInRole("Student")) && (User.Identity.Name == item.student.stud_enrollment))
+                                {
+                                    <tr class="odd gradeX">
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.student.stud_name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.exam.ex_exam)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.exat_date)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.exat_time)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.exat_lab)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.exat_status)
+                                        </td>
+                                    </tr>
+                                }
+                                if ((User.IsInRole("Teacher")) && (ViewBag.studID == item.student.stud_enrollment))
+                                {
+                                    <tr class="odd gradeX">
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.student.stud_name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.exam.ex_exam)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.exat_date)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.exat_time)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.exat_lab)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.exat_status)
+                                        </td>
+                                    </tr>
+                                }
+                                if ((User.IsInRole("Coordinator")) && (ViewBag.studID == item.student.stud_enrollment))
+                                {
+                                    <tr class="odd gradeX">
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.student.stud_name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.exam.ex_exam)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.exat_date)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.exat_time)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.exat_lab)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.exat_status)
+                                        </td>
+                                        <td class="text-center">
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.exat_id }, new { @class = "btn btn-primary btn-sm" }) |
+                                            <button class="btn btn-danger btn-sm" onclick="del(this, '@Html.DisplayFor(modelItem => item.exat_id)')">Delete</button>
+                                            @using (Html.BeginForm())
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" value=@Html.DisplayFor(modelItem => item.exat_id) name="delete" />
+                                                <input type="submit" value="Confirm Delete" class="btn btn-danger btn-sm" id=@Html.DisplayFor(modelItem => item.exat_id) style="display: none;" />
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                                if ((User.IsInRole("Admin")) && (ViewBag.studID == item.student.stud_enrollment))
+                                {
+                                    <tr class="odd gradeX">
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.student.stud_name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.exam.ex_exam)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.exat_date)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.exat_time)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.exat_lab)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.exat_status)
+                                        </td>
+                                        <td class="text-center">
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.exat_id }, new { @class = "btn btn-primary btn-sm" }) |
+                                            <button class="btn btn-danger btn-sm" onclick="del(this, '@Html.DisplayFor(modelItem => item.exat_id)')">Delete</button>
+                                            @using (Html.BeginForm())
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" value=@Html.DisplayFor(modelItem => item.exat_id) name="delete" />
+                                                <input type="submit" value="Confirm Delete" class="btn btn-danger btn-sm" id=@Html.DisplayFor(modelItem => item.exat_id) style="display: none;" />
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--End Advanced Tables -->
+    </div>
+</div>

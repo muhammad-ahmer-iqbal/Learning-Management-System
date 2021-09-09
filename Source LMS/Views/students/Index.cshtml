@@ -1,0 +1,250 @@
+﻿@model IEnumerable<LMS.student>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .Student, .Student i {
+        background-color: #EDEDED !important;
+        color: #F36A5A !important;
+    }
+
+        .Student i {
+            color: #F36A5A !important;
+        }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- Advanced Tables -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <b>Students Details</b>
+                @if (User.IsInRole("Admin"))
+                {
+                    <p>
+                        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-block btn-md btn-info" })
+                    </p>
+                }
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.stud_enrollment)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.stud_name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.stud_fatherName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.stud_email)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.stud_contact)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.stud_fee)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.stud_attendExam)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.stud_batch)
+                                </th>
+                                <th>Attendances</th>
+                                @if ((User.IsInRole("Admin")) || (User.IsInRole("Coordinator")))
+                                {
+                                    <th></th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                if ((User.IsInRole("Teacher")) && (item.stud_batch == ViewBag.batchID))
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.stud_enrollment)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.stud_name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.stud_fatherName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.stud_email)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.stud_contact)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.stud_fee)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.stud_attendExam)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.stud_batch)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Fetch Attended Exam", "Index", "examAttends", new { id = item.stud_enrollment }, new { @class = "btn btn-primary btn-sm" })
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Fetch Attendance", "Index", "attendances", new { id = item.stud_enrollment }, new { @class = "btn btn-primary btn-sm" })
+                                        </td>
+                                    </tr>
+                                }
+                                if ((User.IsInRole("Coordinator")) && (item.stud_batch == ViewBag.batchID))
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.stud_enrollment)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.stud_name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.stud_fatherName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.stud_email)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.stud_contact)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.stud_fee)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.stud_attendExam)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.stud_batch)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Fetch Attended Exam", "Index", "examAttends", new { id = item.stud_enrollment }, new { @class = "btn btn-primary btn-sm" })
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Fetch Attendance", "Index", "attendances", new { id = item.stud_enrollment }, new { @class = "btn btn-primary btn-sm" })
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.stud_enrollment }, new { @class = "btn btn-primary btn-sm" }) |
+                                            <button class="btn btn-danger btn-sm" onclick="del(this, '@Html.DisplayFor(modelItem => item.stud_enrollment)')">Delete</button>
+                                            @using (Html.BeginForm())
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" value=@Html.DisplayFor(modelItem => item.stud_enrollment) name="delete" />
+                                                <input type="submit" value="Confirm Delete" class="btn btn-danger btn-sm" id=@Html.DisplayFor(modelItem => item.stud_enrollment) style="display: none;" />
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                                if (User.IsInRole("Admin"))
+                                {
+                                    if (item.stud_batch == ViewBag.batchID)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.stud_enrollment)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.stud_name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.stud_fatherName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.stud_email)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.stud_contact)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.stud_fee)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.stud_attendExam)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.stud_batch)
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Fetch Attended Exam", "Index", "examAttends", new { id = item.stud_enrollment }, new { @class = "btn btn-primary btn-sm" })
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Fetch Attendance", "Index", "attendances", new { id = item.stud_enrollment }, new { @class = "btn btn-primary btn-sm" })
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Edit", "Edit", new { id = item.stud_enrollment }, new { @class = "btn btn-primary btn-sm" }) |
+                                                <button class="btn btn-danger btn-sm" onclick="del(this, '@Html.DisplayFor(modelItem => item.stud_enrollment)')">Delete</button>
+                                                @using (Html.BeginForm())
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="hidden" value=@Html.DisplayFor(modelItem => item.stud_enrollment) name="delete" />
+                                                    <input type="submit" value="Confirm Delete" class="btn btn-danger btn-sm" id=@Html.DisplayFor(modelItem => item.stud_enrollment) style="display: none;" />
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                    if (ViewBag.batchID == null)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.stud_enrollment)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.stud_name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.stud_fatherName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.stud_email)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.stud_contact)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.stud_fee)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.stud_attendExam)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.stud_batch)
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Fetch Attended Exam", "Index", "examAttends", new { id = item.stud_enrollment }, new { @class = "btn btn-primary btn-sm" })
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Fetch Attendance", "Index", "attendances", new { id = item.stud_enrollment }, new { @class = "btn btn-primary btn-sm" })
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Edit", "Edit", new { id = item.stud_enrollment }, new { @class = "btn btn-primary btn-sm" }) |
+                                                <button class="btn btn-danger btn-sm" onclick="del(this, '@Html.DisplayFor(modelItem => item.stud_enrollment)')">Delete</button>
+                                                @using (Html.BeginForm())
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="hidden" value=@Html.DisplayFor(modelItem => item.stud_enrollment) name="delete" />
+                                                    <input type="submit" value="Confirm Delete" class="btn btn-danger btn-sm" id=@Html.DisplayFor(modelItem => item.stud_enrollment) style="display: none;" />
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--End Advanced Tables -->
+    </div>
+</div>

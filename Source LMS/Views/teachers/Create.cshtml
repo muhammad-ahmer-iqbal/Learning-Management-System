@@ -1,0 +1,62 @@
+﻿@model LMS.teacher
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="page-header signup">Teacher</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <form>
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.teach_id, htmlAttributes: new { @class = "control-label" })
+                <div class="form-group">
+                    @Html.EditorFor(model => model.teach_id, new { htmlAttributes = new { @class = "form-control", @placeholder = "TeacherXXXXXX" } })
+                    @Html.ValidationMessageFor(model => model.teach_id, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.teach_name, htmlAttributes: new { @class = "control-label" })
+                <div class="form-group">
+                    @Html.EditorFor(model => model.teach_name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.teach_name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.teach_email, htmlAttributes: new { @class = "control-label" })
+                <div class="form-group">
+                    @Html.EditorFor(model => model.teach_email, new { htmlAttributes = new { @class = "form-control", @placeholder = "abc@gmail.com" } })
+                    @Html.ValidationMessageFor(model => model.teach_email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.teach_contact, htmlAttributes: new { @class = "control-label" })
+                <div class="form-group">
+                    @Html.EditorFor(model => model.teach_contact, new { htmlAttributes = new { @class = "form-control", @placeholder = "XXXX-XXXXXXX" } })
+                    @Html.ValidationMessageFor(model => model.teach_contact, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.teach_address, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.teach_address, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.teach_address, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.teach_salary, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.teach_salary, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.teach_salary, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="text-center">
+            <input type="submit" class="btn btn-warning" value="Create" name="sumbit">
+        </div>
+    </form>
+}

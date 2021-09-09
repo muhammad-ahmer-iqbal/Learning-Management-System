@@ -1,0 +1,74 @@
+﻿@model LMS.attendance
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- Advanced Tables -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <b>Teachers Details</b>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Student Name
+                                </th>
+                                <th>
+                                    Present
+                                </th>
+                                <th>
+                                    Absent
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <tr class="odd gradeX">
+                                    <td>
+                                        <select name="att_name" style="width:100%; height:28px; border: 0px; background-color:whitesmoke;">
+                                            @foreach (var item in ViewBag.students)
+                                            {
+                                                if (item.stud_batch == ViewBag.batch)
+                                                {
+                                                    <option value="@item.stud_enrollment">@item.stud_name</option>
+                                                }
+
+                                            }
+                                        </select>
+                                    </td>
+                                    <td>
+                                        @Html.RadioButton("att_attendance", "P")
+                                    </td>
+                                    <td>
+                                        @Html.RadioButton("att_attendance", "A", new { @checked = "checked" })
+                                    </td>
+                                </tr>
+                                <tr border="0">
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <div class="text-center">
+                                            <input type="submit" class="btn btn-warning" value="Mark" name="sumbit" />
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @Html.ActionLink("Back", "Index", "batches", null, new { @class = "btn btn-warning" })
+                </div>
+            </div>
+        </div>
+        <!--End Advanced Tables -->
+    </div>
+</div>
