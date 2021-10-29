@@ -40,7 +40,7 @@ namespace LMS.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "Invalid User ID and Password");
+                ModelState.AddModelError("", "Invalid User ID or Password");
             }
 
             return View();
