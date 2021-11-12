@@ -50,7 +50,7 @@
                                 @if (User.IsInRole("Coordinator") || (User.IsInRole("Admin")))
                                 {
                                     <th>
-                                        @Html.DisplayNameFor(model => model.teacher.teach_name)
+                                        @Html.DisplayNameFor(model => model.batch.bat_id)
                                     </th>
                                 }
                             </tr>
@@ -100,7 +100,7 @@
                                             @Html.DisplayFor(modelItem => item.att_year)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.teacher.teach_name)
+                                            @Html.DisplayFor(modelItem => item.batch.bat_id)
                                         </td>
                                     </tr>
                                 }
@@ -149,7 +149,7 @@
                                             @Html.DisplayFor(modelItem => item.att_year)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.teacher.teach_name)
+                                            @Html.DisplayFor(modelItem => item.batch.bat_id)
                                         </td>
                                     </tr>
                                 }
@@ -162,3 +162,8 @@
         <!--End Advanced Tables -->
     </div>
 </div>
+@if ((User.IsInRole("Admin")) || (User.IsInRole("Coordinator")) || (User.IsInRole("Teacher")))
+{
+    <br />
+    @Html.ActionLink("Back to Batch List", "Index", "batches",  null, new { @class = "btn btn-warning" })
+}

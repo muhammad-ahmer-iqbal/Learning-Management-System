@@ -14,7 +14,7 @@
     <form>
         <div class="form-group">
             @Html.LabelFor(model => model.bat_id, htmlAttributes: new { @class = "control-label" })
-            @Html.EditorFor(model => model.bat_id, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.bat_id, new { htmlAttributes = new { @class = "form-control", @placeholder = "Must not be created before" } })
             @Html.ValidationMessageFor(model => model.bat_id, "", new { @class = "text-danger" })
         </div>
         <div class="row">

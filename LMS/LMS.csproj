@@ -131,8 +131,12 @@
     <Compile Include="batch.cs">
       <DependentUpon>LMSDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="book.cs">
+      <DependentUpon>LMSDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\attendancesController.cs" />
     <Compile Include="Controllers\batchesController.cs" />
+    <Compile Include="Controllers\booksController.cs" />
     <Compile Include="Controllers\coordinatorsController.cs" />
     <Compile Include="Controllers\coursesController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
@@ -155,9 +159,6 @@
       <DependentUpon>LMSDB.tt</DependentUpon>
     </Compile>
     <Compile Include="examAttend.cs">
-      <DependentUpon>LMSDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="findBatch_Result.cs">
       <DependentUpon>LMSDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
@@ -234,6 +235,9 @@
     <Content Include="Views\students\Edit.cshtml" />
     <Content Include="Views\teachers\Edit.cshtml" />
     <Content Include="Views\userDetails\Edit.cshtml" />
+    <Content Include="Views\books\Index.cshtml" />
+    <Content Include="Views\books\Create.cshtml" />
+    <Content Include="Views\books\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -243,6 +247,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Book\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

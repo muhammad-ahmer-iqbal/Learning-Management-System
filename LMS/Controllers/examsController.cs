@@ -54,7 +54,7 @@ namespace LMS.Controllers
         public ActionResult Create()
         {
             ViewBag.title = "Exam | LMS";
-            ViewBag.ex_exam = new SelectList(db.course, "cour_name", "cour_diploma");
+            ViewBag.ex_exam = new SelectList(db.course, null, "cour_name");
             return View();
         }
 
@@ -65,11 +65,20 @@ namespace LMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ex_id,ex_exam")] exam exam)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.exam.Add(exam);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.exam.Add(exam);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                    ModelState.AddModelError("", "Enter a valid data");
+            }
+            catch(Exception e)
+            {
+                ModelState.AddModelError("", e.Message);
             }
 
             ViewBag.ex_exam = new SelectList(db.course, "cour_name", "cour_diploma", exam.ex_exam);
@@ -101,11 +110,20 @@ namespace LMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ex_id,ex_exam")] exam exam)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(exam).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(exam).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                    ModelState.AddModelError("", "Enter a valid data");
+            }
+            catch(Exception e)
+            {
+                ModelState.AddModelError("", e.Message);
             }
             ViewBag.ex_exam = new SelectList(db.course, "cour_name", "cour_diploma", exam.ex_exam);
             return View(exam);

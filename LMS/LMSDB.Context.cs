@@ -12,8 +12,6 @@ namespace LMS
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Data.Entity.Core.Objects;
-    using System.Linq;
     
     public partial class LMSEntities : DbContext
     {
@@ -29,6 +27,7 @@ namespace LMS
     
         public virtual DbSet<attendance> attendance { get; set; }
         public virtual DbSet<batch> batch { get; set; }
+        public virtual DbSet<book> book { get; set; }
         public virtual DbSet<coordinator> coordinator { get; set; }
         public virtual DbSet<course> course { get; set; }
         public virtual DbSet<diploma> diploma { get; set; }
@@ -37,14 +36,5 @@ namespace LMS
         public virtual DbSet<student> student { get; set; }
         public virtual DbSet<teacher> teacher { get; set; }
         public virtual DbSet<userDetails> userDetails { get; set; }
-    
-        public virtual ObjectResult<findBatch_Result> findBatch(string batch)
-        {
-            var batchParameter = batch != null ?
-                new ObjectParameter("batch", batch) :
-                new ObjectParameter("batch", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<findBatch_Result>("findBatch", batchParameter);
-        }
     }
 }

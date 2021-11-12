@@ -19,7 +19,8 @@ namespace LMS.Controllers
         public ActionResult Index()
         {
             ViewBag.title = "Course | LMS";
-            return View(db.course.ToList());
+            var course = db.course.Include(c => c.diploma);
+            return View(course.ToList());
         }
 
         // POST: courses/Delete/5
@@ -64,11 +65,20 @@ namespace LMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "cour_name,cour_sessions,cour_diploma")] course course)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.course.Add(course);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.course.Add(course);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                    ModelState.AddModelError("", "Enter a valid data");
+            }
+            catch(Exception e)
+            {
+                ModelState.AddModelError("", e.Message);
             }
 
             ViewBag.cour_diploma = new SelectList(db.diploma, "dip_id", "dip_name", course.cour_diploma);
@@ -89,7 +99,7 @@ namespace LMS.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.cour_diploma = new SelectList(db.diploma, "dip_name", "dip_duration", course.cour_diploma);
+            ViewBag.cour_diploma = new SelectList(db.diploma, "dip_id", "dip_name", course.cour_diploma);
             return View(course);
         }
 
@@ -100,13 +110,22 @@ namespace LMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "cour_name,cour_sessions,cour_diploma")] course course)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(course).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(course).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                    ModelState.AddModelError("", "Enter a valid data");
             }
-            ViewBag.cour_diploma = new SelectList(db.diploma, "dip_name", "dip_duration", course.cour_diploma);
+            catch(Exception e)
+            {
+                ModelState.AddModelError("", e.Message);
+            }
+            ViewBag.cour_diploma = new SelectList(db.diploma, "dip_id", "dip_name", course.cour_diploma);
             return View(course);
         }
 

@@ -39,7 +39,7 @@
                                     @Html.DisplayNameFor(model => model.cour_sessions)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.cour_diploma)
+                                    @Html.DisplayNameFor(model => model.diploma.dip_name)
                                 </th>
                                 @if (User.IsInRole("Admin"))
                                 {
@@ -58,11 +58,11 @@
                                         @Html.DisplayFor(modelItem => item.cour_sessions)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.cour_diploma)
+                                        @Html.DisplayFor(modelItem => item.diploma.dip_name)
                                     </td>
                                     @if (User.IsInRole("Admin"))
                                     {
-                                        <td class="text-center">
+                                        <td class="text-right">
                                             @Html.ActionLink("Edit", "Edit", new { id = item.cour_name }, new { @class = "btn btn-primary btn-sm" }) |
                                             <button class="btn btn-danger btn-sm" onclick="del(this, '@Html.DisplayFor(modelItem => item.cour_name)')">Delete</button>
                                             @using (Html.BeginForm())

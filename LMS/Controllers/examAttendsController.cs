@@ -67,11 +67,20 @@ namespace LMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "exat_id,exat_name,exat_enrollement,exat_status,exat_date,exat_time,exat_lab")] examAttend examAttend)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.examAttend.Add(examAttend);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.examAttend.Add(examAttend);
+                    db.SaveChanges();
+                    return RedirectToAction("Create");
+                }
+                else
+                    ModelState.AddModelError("", "Enter a valid data");
+            }
+            catch(Exception e)
+            {
+                ModelState.AddModelError("", e.Message);
             }
 
             ViewBag.exat_name = new SelectList(db.exam, "ex_id", "ex_exam", examAttend.exat_name);
@@ -105,11 +114,20 @@ namespace LMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "exat_id,exat_name,exat_enrollement,exat_status,exat_date,exat_time,exat_lab")] examAttend examAttend)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(examAttend).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(examAttend).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                    ModelState.AddModelError("", "Enter a valid data");
+            }
+            catch (Exception e)
+            {
+                    ModelState.AddModelError("", e.Message);
             }
             ViewBag.exat_name = new SelectList(db.exam, "ex_id", "ex_exam", examAttend.exat_name);
             ViewBag.exat_enrollement = new SelectList(db.student, "stud_enrollment", "stud_name", examAttend.exat_enrollement);

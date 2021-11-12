@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -10,62 +11,119 @@ using LMS;
 
 namespace LMS.Controllers
 {
-    [Authorize(Roles = "Admin")]
-    public class coordinatorsController : Controller
+    public class booksController : Controller
     {
         private LMSEntities db = new LMSEntities();
 
-        // GET: coordinators
+        // GET: books
+        [Authorize]
         public ActionResult Index()
         {
-            ViewBag.title = "Coordinator | LMS";
-            return View(db.coordinator.ToList());
+            ViewBag.Title = "Books | LMS";
+            return View(db.book.ToList());
         }
 
-        // POST: coordinators/Delete/5
+        // POST: books/Delete/5
         [HttpPost, ActionName("Index")]
         [ValidateAntiForgeryToken]
-        public ActionResult ConfirmDelete(string delete)
+        public ActionResult DeleteConfirmed(int delete)
         {
-            coordinator coordinator = db.coordinator.Find(delete);
-            db.coordinator.Remove(coordinator);
+            book book = db.book.Find(delete);
+            db.book.Remove(book);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        // GET: coordinators/Details/5
-        public ActionResult Details(string id)
+
+        // GET: books/Details/5
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            coordinator coordinator = db.coordinator.Find(id);
-            if (coordinator == null)
+            book book = db.book.Find(id);
+            if (book == null)
             {
                 return HttpNotFound();
             }
-            return View(coordinator);
+            return View(book);
         }
 
-        // GET: coordinators/Create
+        [Authorize(Roles = "Admin,Teacher,Coordinator")]
+        // GET: books/Create
         public ActionResult Create()
         {
-            ViewBag.title = "Coordinator | LMS";
+            ViewBag.Title = "Books | LMS";
             return View();
         }
 
-        // POST: coordinators/Create
+        // POST: books/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "coord_id,coord_name,coord_email,coord_address,coord_contact,coord_salary")] coordinator coordinator)
+        public ActionResult Create([Bind(Include = "b_id,b_name,b_write,b_topic,b_book,bookFile")] book book)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    db.coordinator.Add(coordinator);
+                    string filename = Path.GetFileNameWithoutExtension(book.bookFile.FileName),
+                            extension = Path.GetExtension(book.bookFile.FileName);
+                    if ((extension == ".pdf") || (extension == ".doc") || (extension == ".docx"))
+                    {
+                        filename = filename + DateTime.Now.ToString("yymmssfff") + extension;
+                        book.b_book = "/Book/" + filename;
+                        filename = Path.Combine(Server.MapPath("~/Book/"), filename);
+                        book.bookFile.SaveAs(filename);
+
+                        db.book.Add(book);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    else
+                        ModelState.AddModelError("", "Enter any PDF, DOC or DOCX file only");
+                }
+                else
+                    ModelState.AddModelError("", "Enter a valid data");
+            }
+            catch(Exception e)
+            {
+                ModelState.AddModelError("", e.Message);
+            }
+
+            return View(book);
+        }
+
+        [Authorize(Roles = "Admin,Teacher,Coordinator")]
+        // GET: books/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            ViewBag.Title = "Books | LMS";
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            book book = db.book.Find(id);
+            if (book == null)
+            {
+                return HttpNotFound();
+            }
+            return View(book);
+        }
+
+        // POST: books/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "b_id,b_name,b_write,b_topic,b_book")] book book)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Entry(book).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
@@ -76,66 +134,23 @@ namespace LMS.Controllers
             {
                 ModelState.AddModelError("", e.Message);
             }
-
-            return View(coordinator);
+            return View(book);
         }
 
-        // GET: coordinators/Edit/5
-        public ActionResult Edit(string id)
-        {
-            ViewBag.title = "Coordinator | LMS";
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            coordinator coordinator = db.coordinator.Find(id);
-            if (coordinator == null)
-            {
-                return HttpNotFound();
-            }
-            return View(coordinator);
-        }
-
-        // POST: coordinators/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "coord_id,coord_name,coord_email,coord_address,coord_contact,coord_salary")] coordinator coordinator)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    db.Entry(coordinator).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                else
-                    ModelState.AddModelError("", "Enter a valid data");
-            }
-            catch(Exception e)
-            {
-                ModelState.AddModelError("", e.Message);
-            }
-            return View(coordinator);
-        }
-
-        // GET: coordinators/Delete/5
-        public ActionResult Delete(string id)
+        // GET: books/Delete/5
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            coordinator coordinator = db.coordinator.Find(id);
-            if (coordinator == null)
+            book book = db.book.Find(id);
+            if (book == null)
             {
                 return HttpNotFound();
             }
-            return View(coordinator);
+            return View(book);
         }
-
 
         protected override void Dispose(bool disposing)
         {

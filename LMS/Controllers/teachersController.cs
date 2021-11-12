@@ -47,11 +47,20 @@ namespace LMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "teach_id,teach_name,teach_email,teach_address,teach_contact,teach_salary")] teacher teacher)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.teacher.Add(teacher);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.teacher.Add(teacher);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                    ModelState.AddModelError("", "Enter a valid data");
+            }
+            catch(Exception e)
+            {
+                ModelState.AddModelError("", e.Message);
             }
 
             return View(teacher);
@@ -80,11 +89,20 @@ namespace LMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "teach_id,teach_name,teach_email,teach_address,teach_contact,teach_salary")] teacher teacher)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(teacher).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(teacher).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                    ModelState.AddModelError("", "Enter a valid data");
+            }
+            catch(Exception e)
+            {
+                ModelState.AddModelError("", e.Message);
             }
             return View(teacher);
         }

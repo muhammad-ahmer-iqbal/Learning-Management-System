@@ -13,23 +13,19 @@ namespace LMS
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class userDetails
     {
-        [DisplayName("User ID")]
+        [DisplayName("User ID"), Required(ErrorMessage = "Please fill this field")]
         public string u_id { get; set; }
-        [DisplayName("User Password"), DataType(DataType.Password)]
+        [DisplayName("User Password"), DataType(DataType.Password), Required(ErrorMessage = "Please fill this field")]
         public string u_password { get; set; }
         [DisplayName("Position")]
         public string u_role { get; set; }
-        [NotMapped]
         [DisplayName("Old Password"), DataType(DataType.Password)]
         public string oldPassword { get; set; }
-        [NotMapped]
         [DisplayName("New Password"), DataType(DataType.Password)]
         public string newPassword { get; set; }
-        [NotMapped]
         [DisplayName("Confirm Password"), DataType(DataType.Password)]
         public string confirmPassword { get; set; }
     }

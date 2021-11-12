@@ -12,18 +12,21 @@ namespace LMS
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
     public partial class batch
     {
-        [DisplayName("Batch Code")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public batch()
+        {
+            this.attendance = new HashSet<attendance>();
+        }
+        [DisplayName("Batch Code"), Required(ErrorMessage = "Please fill this field")]
         public string bat_id { get; set; }
-
         [DisplayName("Slot")]
         public string bat_slot { get; set; }
-
         [DisplayName("Day")]
         public string bat_days { get; set; }
-
         [DisplayName("Teacher")]
         public string bat_teacher { get; set; }
         [DisplayName("Coordinator")]
@@ -32,10 +35,11 @@ namespace LMS
         public Nullable<int> bat_lab { get; set; }
         [DisplayName("Semester")]
         public Nullable<int> bat_sem { get; set; }
-
         [DisplayName("Status")]
         public string bat_status { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<attendance> attendance { get; set; }
         public virtual coordinator coordinator { get; set; }
         public virtual teacher teacher { get; set; }
     }

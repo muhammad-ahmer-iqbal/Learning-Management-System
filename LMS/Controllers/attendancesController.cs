@@ -17,7 +17,7 @@ namespace LMS.Controllers
         {
             ViewBag.title = "Attendance | LMS";
             ViewBag.studID = id;
-            var attendance = db.attendance.Include(a => a.student).Include(a => a.teacher);
+            var attendance = db.attendance.Include(a => a.student).Include(a => a.batch);
             return View(attendance.ToList());
         }
 
@@ -41,7 +41,7 @@ namespace LMS.Controllers
         public ActionResult Create(string id)
         {
             ViewBag.title = "Attendance | LMS";
-            ViewBag.att_teacher = User.Identity.Name;
+            ViewBag.att_batch = User.Identity.Name;
             ViewBag.students = db.student.ToList();
             ViewBag.batch =  id;
             return View();
@@ -52,20 +52,28 @@ namespace LMS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "att_id,att_name,att_teacher,att_session,att_attendance")] attendance attendance)
+        public ActionResult Create([Bind(Include = "att_id,att_name,att_batch,att_session,att_attendance")] attendance attendance)
         {
-            if (ModelState.IsValid)
+            try
             {
-                attendance.att_teacher = User.Identity.Name;
-                attendance.att_session = DateTime.Now.Day;
-                attendance.att_month = DateTime.Now.ToString("MMMM");
-                attendance.att_year = DateTime.Now.Year;
-                db.attendance.Add(attendance);
-                db.SaveChanges();
-                return RedirectToAction("Create");
+                if (ModelState.IsValid)
+                {
+                    attendance.att_session = DateTime.Now.Day;
+                    attendance.att_month = DateTime.Now.ToString("MMMM");
+                    attendance.att_year = DateTime.Now.Year;
+                    db.attendance.Add(attendance);
+                    db.SaveChanges();
+                    return RedirectToAction("Create");
+                }
+                else
+                    ModelState.AddModelError("", "Enter Valid data");
             }
-
-            return View(attendance);
+            catch(Exception e)
+            {
+                ModelState.AddModelError("", e.Message);
+            }
+            
+                return View(attendance);
         }
 
         // GET: attendances/Edit/5
@@ -81,7 +89,7 @@ namespace LMS.Controllers
                 return HttpNotFound();
             }
             ViewBag.att_name = new SelectList(db.student, "stud_enrollment", "stud_name", attendance.att_name);
-            ViewBag.att_teacher = new SelectList(db.teacher, "teach_id", "teach_name", attendance.att_teacher);
+            ViewBag.att_batch = new SelectList(db.batch, "batch_id", "batch_id", attendance.batch);
             return View(attendance);
         }
 
@@ -90,7 +98,7 @@ namespace LMS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "att_id,att_name,att_teacher,att_session,att_month,att_year")] attendance attendance)
+        public ActionResult Edit([Bind(Include = "att_id,att_name,att_batch,att_session,att_month,att_year")] attendance attendance)
         {
             if (ModelState.IsValid)
             {
@@ -99,7 +107,7 @@ namespace LMS.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.att_name = new SelectList(db.student, "stud_enrollment", "stud_name", attendance.att_name);
-            ViewBag.att_teacher = new SelectList(db.teacher, "teach_id", "teach_name", attendance.att_teacher);
+            ViewBag.att_batch = new SelectList(db.batch, "batch_id", "batch_id", attendance.att_batch);
             return View(attendance);
         }
 

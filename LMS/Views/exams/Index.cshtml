@@ -19,7 +19,7 @@
         <!-- Advanced Tables -->
         <div class="panel panel-default">
             <div class="panel-heading">
-                <b>Exam Details</b>
+                <b>Exam List</b>
                 @if (User.IsInRole("Admin"))
                 {
                     <p>
@@ -33,10 +33,7 @@
                         <thead>
                             <tr>
                                 <th>
-                                    Serial No.
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.course.cour_diploma)
+                                    @Html.DisplayNameFor(model => model.course.cour_name)
                                 </th>
                                 @if (User.IsInRole("Admin"))
                                 {
@@ -48,9 +45,6 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ex_id)
-                                    </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.course.cour_name)
                                     </td>

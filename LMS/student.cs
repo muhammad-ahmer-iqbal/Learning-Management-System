@@ -22,24 +22,23 @@ namespace LMS
             this.attendance = new HashSet<attendance>();
             this.examAttend = new HashSet<examAttend>();
         }
-        [DisplayName("Student Enrollment")]
+        [DisplayName("Student Enrollment"), Required(ErrorMessage = "Please fill this field")]
         public string stud_enrollment { get; set; }
-        [DisplayName("Student Name")]
+        [DisplayName("Student Name"), Required(ErrorMessage = "Please fill this field")]
         public string stud_name { get; set; }
-        [DisplayName("Father Name")]
+        [DisplayName("Father Name"), Required(ErrorMessage = "Please fill this field")]
         public string stud_fatherName { get; set; }
-        [DisplayName("Email Address"), DataType(DataType.EmailAddress), RegularExpression(@"/ ^[a - zA - Z0 - 9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+$/",
-        ErrorMessage = "Please enter a valid email address")]
+        [DisplayName("Email Address"), DataType(DataType.EmailAddress)]
         public string stud_email { get; set; }
-        [DisplayName("Contact Number"), RegularExpression("/^[0-9]{4}([-])?([0-9]{7})?$/", ErrorMessage = "Please enter a Pakistani number")]
+        [DisplayName("Contact Number"), Required(ErrorMessage = "Please fill this field")]
         public long stud_contact { get; set; }
-        [DisplayName("Student Name"), DataType(DataType.Currency)]
+        [DisplayName("Student Fee"), DataType(DataType.Currency), Required(ErrorMessage = "Please fill this field")]
         public decimal stud_fee { get; set; }
         [DisplayName("Attended Exam")]
         public Nullable<int> stud_attendExam { get; set; }
-        [DisplayName("Batch Code")]
+        [DisplayName("Batch Code"), Required(ErrorMessage = "Please fill this field")]
         public string stud_batch { get; set; }
-        [DisplayName("Address")]
+        [DisplayName("Address"), Required(ErrorMessage = "Please fill this field")]
         public string stud_address { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

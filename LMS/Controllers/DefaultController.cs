@@ -26,21 +26,28 @@ namespace LMS.Controllers
         {
             bool isValid = db.userDetails.Any(x => x.u_id == model.u_id && x.u_password == model.u_password);
 
-            if (isValid)
+            try
             {
-                FormsAuthentication.SetAuthCookie(model.u_id, false);
-                if (User.IsInRole("Student"))
+                if (isValid)
                 {
-                    return RedirectToAction("Index", "attendances");
+                    FormsAuthentication.SetAuthCookie(model.u_id, false);
+                    if (User.IsInRole("Student"))
+                    {
+                        return RedirectToAction("Index", "attendances");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "batches");
+                    }
                 }
                 else
                 {
-                    return RedirectToAction("Index", "batches");
+                    ModelState.AddModelError("", "Invalid User ID and Password");
                 }
             }
-            else
+            catch(Exception e)
             {
-                ModelState.AddModelError("", "Invalid User ID and Password");
+                ModelState.AddModelError("", e.Message);
             }
 
             return View();

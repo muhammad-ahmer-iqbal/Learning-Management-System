@@ -69,7 +69,7 @@
                                     </th>
                                 }
                                 <th>Attendance</th>
-                                <th></th>
+                                @if ((User.IsInRole("Coordinator")) || (User.IsInRole("Admin"))) { <th></th> }
                             </tr>
                         </thead>
                         <tbody>
@@ -104,15 +104,6 @@
                                         </td>
                                         <td>
                                             @Html.ActionLink("Attendance", "Create", "attendances", new { id = item.bat_id }, new { @class = "btn btn-primary btn-sm" })
-                                        </td>
-                                        <td class="text-center">
-                                            <button class="btn btn-danger btn-sm" onclick="del(this, '@Html.DisplayFor(modelItem => item.bat_id)')">Delete</button>
-                                            @using (Html.BeginForm())
-                                            {
-                                                @Html.AntiForgeryToken()
-                                                <input type="hidden" value=@Html.DisplayFor(modelItem => item.bat_id) name="delete" />
-                                                <input type="submit" value="Confirm Delete" class="btn btn-danger btn-sm" id=@Html.DisplayFor(modelItem => item.bat_id) style="display: none;" />
-                                            }
                                         </td>
                                     </tr>
                                 }

@@ -12,15 +12,14 @@ namespace LMS
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
 
     public partial class attendance
     {
         public int att_id { get; set; }
         [DisplayName("Student Name")]
         public string att_name { get; set; }
-        [DisplayName("Teacher Name")]
-        public string att_teacher { get; set; }
+        [DisplayName("Batch ID")]
+        public string att_batch { get; set; }
         [DisplayName("Session")]
         public Nullable<int> att_session { get; set; }
         [DisplayName("Month")]
@@ -31,6 +30,6 @@ namespace LMS
         public string att_attendance { get; set; }
     
         public virtual student student { get; set; }
-        public virtual teacher teacher { get; set; }
+        public virtual batch batch { get; set; }
     }
 }

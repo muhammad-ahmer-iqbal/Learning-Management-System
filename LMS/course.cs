@@ -12,6 +12,7 @@ namespace LMS
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
     public partial class course
     {
@@ -20,14 +21,15 @@ namespace LMS
         {
             this.exam = new HashSet<exam>();
         }
-        [DisplayName("Course Name")]
+        [DisplayName("Course Name"), Required(ErrorMessage = "Please fill this field")]
         public string cour_name { get; set; }
         [DisplayName("Sessions")]
         public int cour_sessions { get; set; }
-        [DisplayName("Diploma")]
-        public string cour_diploma { get; set; }
+        [DisplayName("Diploma"), Required(ErrorMessage = "Please fill this field")]
+        public Nullable<int> cour_diploma { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<exam> exam { get; set; }
+        public virtual diploma diploma { get; set; }
     }
 }

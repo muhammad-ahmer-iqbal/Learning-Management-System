@@ -12,6 +12,7 @@ namespace LMS
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
     public partial class exam
     {
@@ -22,7 +23,7 @@ namespace LMS
         }
     
         public int ex_id { get; set; }
-        [DisplayName("Exam Name")]
+        [DisplayName("Exam Name"), Required(ErrorMessage = "Please fill this field")]
         public string ex_exam { get; set; }
     
         public virtual course course { get; set; }

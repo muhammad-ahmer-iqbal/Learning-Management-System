@@ -66,11 +66,20 @@ namespace LMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "bat_id,bat_slot,bat_days,bat_teacher,bat_coordinator,bat_lab,bat_sem,bat_status")] batch batch)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.batch.Add(batch);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.batch.Add(batch);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                    ModelState.AddModelError("", "Enter a valid data");
+            }
+            catch(Exception e)
+            {
+                ModelState.AddModelError("", e.Message);
             }
 
             ViewBag.bat_coordinator = new SelectList(db.coordinator, "coord_id", "coord_name", batch.bat_coordinator);
@@ -104,11 +113,20 @@ namespace LMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "bat_id,bat_slot,bat_days,bat_teacher,bat_coordinator,bat_lab,bat_sem,bat_status")] batch batch)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(batch).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(batch).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                    ModelState.AddModelError("", "Enter a valid data");
+            }
+            catch(Exception e)
+            {
+                ModelState.AddModelError("", e.Message);
             }
             ViewBag.bat_coordinator = new SelectList(db.coordinator, "coord_id", "coord_name", batch.bat_coordinator);
             ViewBag.bat_teacher = new SelectList(db.teacher, "teach_id", "teach_name", batch.bat_teacher);

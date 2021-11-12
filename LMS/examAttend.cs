@@ -12,21 +12,22 @@ namespace LMS
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
     public partial class examAttend
     {
         public int exat_id { get; set; }
-        [DisplayName("Exam Name")]
+        [DisplayName("Exam Name"), Required(ErrorMessage = "Please fill this field")]
         public int exat_name { get; set; }
-        [DisplayName("Student")]
+        [DisplayName("Student"), Required(ErrorMessage = "Please fill this field")]
         public string exat_enrollement { get; set; }
         [DisplayName("Status")]
         public string exat_status { get; set; }
-        [DisplayName("Date")]
+        [DisplayName("Date"), DataType(DataType.Date)]
         public System.DateTime exat_date { get; set; }
-        [DisplayName("Time")]
+        [DisplayName("Time"), DataType(DataType.Time)]
         public System.TimeSpan exat_time { get; set; }
-        [DisplayName("Lab Number")]
+        [DisplayName("Lab Number"), Required(ErrorMessage = "Please fill this field")]
         public string exat_lab { get; set; }
     
         public virtual exam exam { get; set; }

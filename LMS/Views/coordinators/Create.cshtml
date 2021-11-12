@@ -16,7 +16,7 @@
             <div class="col-md-6">
                 @Html.LabelFor(model => model.coord_id, htmlAttributes: new { @class = "control-label" })
                 <div class="form-group">
-                    @Html.EditorFor(model => model.coord_id, new { htmlAttributes = new { @class = "form-control", @placeholder = "coorderXXXXXX" } })
+                    @Html.EditorFor(model => model.coord_id, new { htmlAttributes = new { @class = "form-control", @placeholder = "coorderXXXXXX (Must not be created before)" } })
                     @Html.ValidationMessageFor(model => model.coord_id, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -39,7 +39,7 @@
             <div class="col-md-6">
                 @Html.LabelFor(model => model.coord_contact, htmlAttributes: new { @class = "control-label" })
                 <div class="form-group">
-                    @Html.EditorFor(model => model.coord_contact, new { htmlAttributes = new { @class = "form-control", @placeholder = "XXXX-XXXXXXX" } })
+                    @Html.EditorFor(model => model.coord_contact, new { htmlAttributes = new { @class = "form-control", @placeholder = "03001234567" } })
                     @Html.ValidationMessageFor(model => model.coord_contact, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -60,6 +60,5 @@
         </div>
     </form>
 }
-
 <br />
 @Html.ActionLink("Back", "Index", null, new { @class = "btn btn-warning" })

@@ -65,11 +65,20 @@ namespace LMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "stud_enrollment,stud_name,stud_fatherName,stud_email,stud_contact,stud_fee,stud_attendExam,stud_batch,stud_address")] student student)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.student.Add(student);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.student.Add(student);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                    ModelState.AddModelError("", "Enter a valid data");
+            }
+            catch(Exception e)
+            {
+                ModelState.AddModelError("", e.Message);
             }
 
             return View(student);
@@ -89,6 +98,7 @@ namespace LMS.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.stud_batch = new SelectList(db.batch, "bat_id", "bat_id", student.stud_batch);
             return View(student);
         }
 
@@ -97,14 +107,24 @@ namespace LMS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "stud_enrollment,stud_name,stud_fatherName,stud_email,stud_contact,stud_fee,stud_attendExam,stud_batch")] student student)
+        public ActionResult Edit([Bind(Include = "stud_enrollment,stud_name,stud_fatherName,stud_email,stud_contact,stud_fee,stud_address,stud_attendExam,stud_batch")] student student)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(student).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(student).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                    ModelState.AddModelError("", "Enter a valid data");
             }
+            catch(Exception e)
+            {
+                ModelState.AddModelError("", e.Message);
+            }
+            ViewBag.stud_batch = new SelectList(db.batch, "bat_id", "bat_id", student.stud_batch);
             return View(student);
         }
 

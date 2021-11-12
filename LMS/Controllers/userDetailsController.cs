@@ -62,12 +62,21 @@ namespace LMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "u_id,u_password")] userDetails userDetails)
         {
-            if (ModelState.IsValid)
+            try
             {
-                userDetails.u_role = "Admin";
-                db.userDetails.Add(userDetails);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    userDetails.u_role = "Admin";
+                    db.userDetails.Add(userDetails);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                    ModelState.AddModelError("", "Enter a valid data");
+            }
+            catch(Exception e)
+            {
+                ModelState.AddModelError("", e.Message);
             }
 
             return View(userDetails);
@@ -98,23 +107,32 @@ namespace LMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ChangePassword([Bind(Include = "u_id,u_password,u_role,oldPassword,newPassword,confirmPassword")] userDetails userDetails)
         {
-            if(ModelState.IsValid)
+            try
             {
-                if (userDetails.u_password == userDetails.oldPassword)
+                if (ModelState.IsValid)
                 {
-                    if (userDetails.confirmPassword == userDetails.newPassword)
+                    if (userDetails.u_password == userDetails.oldPassword)
                     {
-                        string newPass = userDetails.confirmPassword;
-                        userDetails.u_password = newPass;
-                        db.Entry(userDetails).State = EntityState.Modified;
-                        db.SaveChanges();
-                        return RedirectToAction("ChangePassword");
+                        if (userDetails.confirmPassword == userDetails.newPassword)
+                        {
+                            string newPass = userDetails.confirmPassword;
+                            userDetails.u_password = newPass;
+                            db.Entry(userDetails).State = EntityState.Modified;
+                            db.SaveChanges();
+                            return RedirectToAction("ChangePassword");
+                        }
+                        else
+                            ModelState.AddModelError("confirmPassword", "Confirm password does match");
                     }
                     else
-                        ModelState.AddModelError("confirmPassword", "Confirm password does match");
-                }
-                    else
                         ModelState.AddModelError("oldPassword", "Old password is not correct");
+                }
+                else
+                    ModelState.AddModelError("", "Enter a valid data");
+            }
+            catch(Exception e)
+            {
+                ModelState.AddModelError("", e.Message);
             }
             return View(userDetails);
         }

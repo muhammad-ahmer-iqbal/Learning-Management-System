@@ -12,15 +12,24 @@ namespace LMS
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
     public partial class diploma
     {
-        public int dip_id { get; set; }
-        [DisplayName("Diploma Name")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public diploma()
+        {
+            this.course = new HashSet<course>();
+        }
+        [DisplayName("Diploma Name"), Required(ErrorMessage = "Please fill this field")]
         public string dip_name { get; set; }
-        [DisplayName("Duration")]
+        [DisplayName("Duration"), Required(ErrorMessage = "Please fill this field")]
         public string dip_duration { get; set; }
-        [DisplayName("Package")]
+        [DisplayName("Package"), Required(ErrorMessage = "Please fill this field")]
         public decimal dip_package { get; set; }
+        public int dip_id { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<course> course { get; set; }
     }
 }

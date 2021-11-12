@@ -1,0 +1,88 @@
+﻿@model IEnumerable<LMS.book>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .Book, .Book i {
+        background-color: #EDEDED !important;
+        color: #F36A5A !important;
+    }
+
+        .Book i {
+            color: #F36A5A !important;
+        }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- Advanced Tables -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <b>Students Details</b>
+                @if ((User.IsInRole("Admin")) || (User.IsInRole("Teacher")) || (User.IsInRole("Coordinator")))
+                {
+                    <p>
+                        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-block btn-md btn-info" })
+                    </p>
+                }
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.b_name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.b_topic)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.b_write)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.b_book)
+                                </th>
+                                @if ((User.IsInRole("Admin")) || (User.IsInRole("Coordinator")) || (User.IsInRole("Teacher")))
+                                {
+                                    <th></th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.b_name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.b_topic)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.b_write)
+                                    </td>
+                                    <td>
+                                        <a href="@Html.DisplayFor(modelItem => item.b_book)" download>Download your book</a>
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.b_id }, new { @class = "btn btn-primary btn-sm" }) |
+                                        <button class="btn btn-danger btn-sm" onclick="del(this, '@Html.DisplayFor(modelItem => item.b_id)')">Delete</button>
+                                        @using (Html.BeginForm())
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" value=@Html.DisplayFor(modelItem => item.b_id) name="delete" />
+                                            <input type="submit" value="Confirm Delete" class="btn btn-danger btn-sm" id=@Html.DisplayFor(modelItem => item.b_id) style="display: none;" />
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--End Advanced Tables -->
+    </div>
+</div>

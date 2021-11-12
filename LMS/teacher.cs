@@ -19,25 +19,21 @@ namespace LMS
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public teacher()
         {
-            this.attendance = new HashSet<attendance>();
             this.batch = new HashSet<batch>();
         }
-        [DisplayName("Teacher ID")]
+        [DisplayName("Teacher ID"), Required(ErrorMessage = "Please fill this field")]
         public string teach_id { get; set; }
-        [DisplayName("Teacher Name")]
+        [DisplayName("Teacher Name"), Required(ErrorMessage = "Please fill this field")]
         public string teach_name { get; set; }
-        [DisplayName("Email Address"), DataType(DataType.EmailAddress), RegularExpression(@"/ ^[a - zA - Z0 - 9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+$/",
-        ErrorMessage = "Please enter a valid email address")]
+        [DisplayName("Email Address"), DataType(DataType.EmailAddress), Required(ErrorMessage = "Please fill this field")]
         public string teach_email { get; set; }
-        [DisplayName("Address")]
+        [DisplayName("Address"), Required(ErrorMessage = "Please fill this field")]
         public string teach_address { get; set; }
-        [DisplayName("Contact Number"), RegularExpression("/^[0-9]{4}([-])?([0-9]{7})?$/", ErrorMessage = "Please enter a Pakistani number")]
+        [DisplayName("Contact Number"), Required(ErrorMessage = "Please fill this field")]
         public long teach_contact { get; set; }
-        [DisplayName("Email Address"), DataType(DataType.Currency)]
+        [DisplayName("Salary"), DataType(DataType.Currency), Required(ErrorMessage = "Please fill this field")]
         public decimal teach_salary { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<attendance> attendance { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<batch> batch { get; set; }
     }

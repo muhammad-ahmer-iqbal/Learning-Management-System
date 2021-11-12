@@ -21,20 +21,17 @@ namespace LMS
         {
             this.batch = new HashSet<batch>();
         }
-
-        [DisplayName("Coordinator ID")]
+        [DisplayName("Coordinator ID"), Required(ErrorMessage = "Please fill this field")]
         public string coord_id { get; set; }
-        [DisplayName("Coordinator Name")]
+        [DisplayName("Coordinator Name"), Required(ErrorMessage = "Please fill this field")]
         public string coord_name { get; set; }
-
-        [DisplayName("Email Address"), DataType(DataType.EmailAddress), RegularExpression(@"/ ^[a - zA - Z0 - 9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+$/",
-        ErrorMessage = "Please enter a valid email address")]
+        [DisplayName("Email Address"), DataType(DataType.EmailAddress), Required(ErrorMessage = "Please fill this field")]
         public string coord_email { get; set; }
-        [DisplayName("Address")]
+        [DisplayName("Address"), Required(ErrorMessage = "Please fill this field")]
         public string coord_address { get; set; }
-        [DisplayName("Contact Number"), RegularExpression("/^[0-9]{4}([-])?([0-9]{7})?$/", ErrorMessage = "Please enter a Pakistani number")]
+        [DisplayName("Contact Number"), Required(ErrorMessage = "Please fill this field")]
         public long coord_contact { get; set; }
-        [DisplayName("Salary"), DataType(DataType.Currency)]
+        [DisplayName("Salary"), DataType(DataType.Currency), Required(ErrorMessage = "Please fill this field")]
         public decimal coord_salary { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

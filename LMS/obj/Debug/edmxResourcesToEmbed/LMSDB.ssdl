@@ -6,7 +6,7 @@
     </Key>
     <Property Name="att_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="att_name" Type="varchar" MaxLength="20" />
-    <Property Name="att_teacher" Type="varchar" MaxLength="20" />
+    <Property Name="att_batch" Type="varchar" MaxLength="20" />
     <Property Name="att_session" Type="int" />
     <Property Name="att_month" Type="varchar" MaxLength="20" />
     <Property Name="att_year" Type="int" />
@@ -25,6 +25,16 @@
     <Property Name="bat_sem" Type="int" />
     <Property Name="bat_status" Type="varchar" MaxLength="20" />
   </EntityType>
+  <EntityType Name="book">
+    <Key>
+      <PropertyRef Name="b_id" />
+    </Key>
+    <Property Name="b_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="b_name" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="b_write" Type="varchar" MaxLength="100" />
+    <Property Name="b_topic" Type="varchar" MaxLength="100" />
+    <Property Name="b_book" Type="varchar(max)" />
+  </EntityType>
   <EntityType Name="coordinator">
     <Key>
       <PropertyRef Name="coord_id" />
@@ -42,7 +52,7 @@
     </Key>
     <Property Name="cour_name" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="cour_sessions" Type="int" Nullable="false" />
-    <Property Name="cour_diploma" Type="varchar" MaxLength="20" />
+    <Property Name="cour_diploma" Type="int" />
   </EntityType>
   <EntityType Name="diploma">
     <Key>
@@ -120,16 +130,16 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__attendanc__att_t__5165187F">
-    <End Role="teacher" Type="Self.teacher" Multiplicity="0..1">
+    <End Role="batch" Type="Self.batch" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
     </End>
     <End Role="attendance" Type="Self.attendance" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="teacher">
-        <PropertyRef Name="teach_id" />
+      <Principal Role="batch">
+        <PropertyRef Name="bat_id" />
       </Principal>
       <Dependent Role="attendance">
-        <PropertyRef Name="att_teacher" />
+        <PropertyRef Name="att_batch" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -161,8 +171,10 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__exam__ex_exam__403A8C7D">
-    <End Role="course" Type="Self.course" Multiplicity="0..1" />
+  <Association Name="FK__exam__ex_exam__3F466844">
+    <End Role="course" Type="Self.course" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="exam" Type="Self.exam" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="course">
@@ -187,6 +199,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_course_diploma">
+    <End Role="diploma" Type="Self.diploma" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="course" Type="Self.course" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="diploma">
+        <PropertyRef Name="dip_id" />
+      </Principal>
+      <Dependent Role="course">
+        <PropertyRef Name="cour_diploma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_examAttend_exam">
     <End Role="exam" Type="Self.exam" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -201,12 +227,10 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Function Name="findBatch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="batch" Type="varchar" Mode="In" />
-  </Function>
   <EntityContainer Name="LMSModelStoreContainer">
     <EntitySet Name="attendance" EntityType="Self.attendance" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="batch" EntityType="Self.batch" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="book" EntityType="Self.book" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="coordinator" EntityType="Self.coordinator" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="course" EntityType="Self.course" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="diploma" EntityType="Self.diploma" Schema="dbo" store:Type="Tables" />
@@ -220,7 +244,7 @@
       <End Role="attendance" EntitySet="attendance" />
     </AssociationSet>
     <AssociationSet Name="FK__attendanc__att_t__5165187F" Association="Self.FK__attendanc__att_t__5165187F">
-      <End Role="teacher" EntitySet="teacher" />
+      <End Role="batch" EntitySet="batch" />
       <End Role="attendance" EntitySet="attendance" />
     </AssociationSet>
     <AssociationSet Name="FK__batch__bat_coord__440B1D61" Association="Self.FK__batch__bat_coord__440B1D61">
@@ -231,13 +255,17 @@
       <End Role="teacher" EntitySet="teacher" />
       <End Role="batch" EntitySet="batch" />
     </AssociationSet>
-    <AssociationSet Name="FK__exam__ex_exam__403A8C7D" Association="Self.FK__exam__ex_exam__403A8C7D">
+    <AssociationSet Name="FK__exam__ex_exam__3F466844" Association="Self.FK__exam__ex_exam__3F466844">
       <End Role="course" EntitySet="course" />
       <End Role="exam" EntitySet="exam" />
     </AssociationSet>
     <AssociationSet Name="FK__examAtten__exat___4BAC3F29" Association="Self.FK__examAtten__exat___4BAC3F29">
       <End Role="student" EntitySet="student" />
       <End Role="examAttend" EntitySet="examAttend" />
+    </AssociationSet>
+    <AssociationSet Name="FK_course_diploma" Association="Self.FK_course_diploma">
+      <End Role="diploma" EntitySet="diploma" />
+      <End Role="course" EntitySet="course" />
     </AssociationSet>
     <AssociationSet Name="FK_examAttend_exam" Association="Self.FK_examAttend_exam">
       <End Role="exam" EntitySet="exam" />

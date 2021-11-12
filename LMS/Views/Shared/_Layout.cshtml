@@ -4,7 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta content="" name="description" />
-    <title>Admin Panel - LMS</title>
+    <link href="~/Content/assets/logo/Logo.png" rel="icon" type="image/x-icon">
+    <title>@ViewBag.title</title>
 
     <!-- Bootstrap Styles-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -86,6 +87,9 @@
                             <li>
                                 <a href="~/examAttends/Index" class="Exam-Attended"><i class="fa fa-pencil-square-o"></i> Exam Attended</a>
                             </li>
+                            <li>
+                                <a href="~/books/Index" class="Book"><i class="fa fa-user"></i> Book</a>
+                            </li>
                         }
                         if (User.IsInRole("Teacher"))
                         {
@@ -100,6 +104,9 @@
                             </li>
                             <li>
                                 <a href="~/diplomata/Index" class="Diploma"><i class="fa fa-graduation-cap"></i> Diploma</a>
+                            </li>
+                            <li>
+                                <a href="~/books/Index" class="Book"><i class="fa fa-user"></i> Book</a>
                             </li>
                         }
                         if (User.IsInRole("Coordinator"))
@@ -119,6 +126,9 @@
                             <li>
                                 <a href="~/diplomata/Index" class="Diploma"><i class="fa fa-graduation-cap"></i> Diploma</a>
                             </li>
+                            <li>
+                                <a href="~/books/Index" class="Book"><i class="fa fa-user"></i> Book</a>
+                            </li>
                         }
                         if (User.IsInRole("Admin"))
                         {
@@ -127,6 +137,9 @@
                             </li>
                             <li>
                                 <a href="~/exams/Index" class="Exam"><i class="fa fa-pencil-square-o"></i> Exam</a>
+                            </li>
+                            <li>
+                                <a href="~/examAttends/Create" class="Mark-Exam"><i class="fa fa-table"></i> Mark Exam</a>
                             </li>
                             <li>
                                 <a href="~/courses/Index" class="Course"><i class="fa fa-clone"></i> Course</a>
@@ -145,6 +158,9 @@
                             </li>
                             <li>
                                 <a href="~/userDetails/Index" class="User"><i class="fa fa-user"></i> User</a>
+                            </li>
+                            <li>
+                                <a href="~/books/Index" class="Book"><i class="fa fa-book"></i> Book</a>
                             </li>
                         }
                     }

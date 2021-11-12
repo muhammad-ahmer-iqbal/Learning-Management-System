@@ -17,31 +17,15 @@
             <div class="col-md-6">
                 @Html.LabelFor(model => model.exat_name, "exat_name", htmlAttributes: new { @class = "control-label" })
                 <div class="form-group">
-                    @Html.DropDownList("exat_name", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("exat_name", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
                     @Html.ValidationMessageFor(model => model.exat_name, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="col-md-6">
                 @Html.LabelFor(model => model.exat_enrollement, "exat_enrollement", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="form-group">
-                    @Html.DropDownList("exat_enrollement", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("exat_enrollement", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
                     @Html.ValidationMessageFor(model => model.exat_enrollement, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                @Html.LabelFor(model => model.exat_date, htmlAttributes: new { @class = "control-label" })
-                <div class="form-group">
-                    @Html.EditorFor(model => model.exat_date, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.exat_date, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="col-md-6">
-                @Html.LabelFor(model => model.exat_time, htmlAttributes: new { @class = "control-label" })
-                <div class="form-group">
-                    @Html.EditorFor(model => model.exat_time, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.exat_time, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
@@ -59,7 +43,7 @@
             <div class="col-md-6">
                 @Html.LabelFor(model => model.exat_lab, htmlAttributes: new { @class = "control-label" })
                 <div class="form-group">
-                    @Html.EditorFor(model => model.exat_lab, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.exat_lab, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
                     @Html.ValidationMessageFor(model => model.exat_lab, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -70,3 +54,5 @@
         </div>
     </form>
 }
+<br />
+@Html.ActionLink("Back to Student Details", "Index", "students", null, new { @class = "btn btn-warning" })
